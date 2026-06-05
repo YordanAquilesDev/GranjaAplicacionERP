@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controladores.HomeController">
+    <children>
+        <BorderPane VBox.vgrow="ALWAYS">
+
+            <left>
+                <VBox prefWidth="220.0" spacing="10.0" style="-fx-background-color: #0d5c63;">
+                    <children>
+                        <VBox alignment="CENTER" prefHeight="80.0" spacing="5.0">
+                            <children>
+                                <Label text="SISTEMA GRANJA" textFill="WHITE">
+                                    <font><Font name="System Bold" size="16.0" /></font>
+                                </Label>
+                                <Label text="Panel de Control MVP" textFill="#b2dfdb">
+                                    <font><Font size="11.0" /></font>
+                                </Label>
+                            </children>
+                        </VBox>
+
+                        <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavegacion" prefHeight="45.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="📊 Dashboard">
+                            <font><Font name="System Bold" size="13.0" /></font>
+                            <padding><Insets left="20.0" /></padding>
+                        </Button>
+                        <Button fx:id="btnAnimales" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavegacion" prefHeight="45.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="🐖 Gestión de Animales">
+                            <font><Font size="13.0" /></font>
+                            <padding><Insets left="20.0" /></padding>
+                        </Button>
+                        <Button fx:id="btnLotes" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavegacion" prefHeight="45.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="📦 Lotes de Producción">
+                            <font><Font size="13.0" /></font>
+                            <padding><Insets left="20.0" /></padding>
+                        </Button>
+                        <Button fx:id="btnVentas" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavegacion" prefHeight="45.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="💰 Ventas y Pedidos">
+                            <font><Font size="13.0" /></font>
+                            <padding><Insets left="20.0" /></padding>
+                        </Button>
+                    </children>
+                </VBox>
+            </left>
+
+            <center>
+                <AnchorPane fx:id="contentArea" style="-fx-background-color: #f4f6f8;" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <Label text="¡Bienvenido al Panel de la Granja!" textFill="#333333">
+                                    <font><Font name="System Bold" size="24.0" /></font>
+                                </Label>
+                                <Label text="Selecciona una opción en el menú izquierdo para empezar a gestionar." textFill="#666666">
+                                    <font><Font size="14.0" /></font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </center>
+
+        </BorderPane>
+    </children>
+</VBox>
