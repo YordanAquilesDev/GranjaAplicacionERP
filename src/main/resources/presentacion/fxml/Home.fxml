@@ -47,7 +47,9 @@
             </left>
 
             <center>
+                <!-- contenare de java  lugar que contiene segun el boton presionada-->
                 <AnchorPane fx:id="contentArea" style="-fx-background-color: #f4f6f8;" BorderPane.alignment="CENTER">
+                    <!-- se limpia cada ves que se se presiona un boton para poner sus nuevas propiedades-->
                     <children>
                         <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>

@@ -28,6 +28,7 @@ public class HomeController {
     }
 
     @FXML
+    // este es un metodo que se llama segun el boton presionada 
     private void handleNavegacion(ActionEvent event) {
         Button botonPresionado = (Button) event.getSource();
 
