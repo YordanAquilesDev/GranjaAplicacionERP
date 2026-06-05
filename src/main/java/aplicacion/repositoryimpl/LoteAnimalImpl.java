@@ -48,7 +48,7 @@ public class LoteAnimalImpl implements LoteAnimalRepository {
     @Override
     public LoteAnimal traerPorId(int id) {
         try {
-            String sql = """
+            String sql ="""
                     SELECT * FROM lote_animal
                     WHERE id_lote=?
                     """;
@@ -67,6 +67,24 @@ public class LoteAnimalImpl implements LoteAnimalRepository {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+
+    }
+
+    public int updateLoteCantidadAnimalActual(int cantidadActual){
+
+        try{
+            String sql="""
+                UPDATE lote_animal
+                SET cantidad= ?
+
+            """;
+            PreparedStatement preparar = conexion.prepareStatement(sql);
+            preparar.setInt(1,cantidadActual);
+            int filasAfectadas= preparar.executeUpdate();
+
+        
+
         }
 
     }
