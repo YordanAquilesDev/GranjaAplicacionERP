@@ -55,4 +55,9 @@ public class ProveedorRepositoryImpl implements ProveedorRepository {
     public List<Proveedor> listarProveedores() {
         return List.of();
     }
+
+    @Override
+    public int updateProveedor(Proveedor proveedor) {
+        return 0;
+    }
 }

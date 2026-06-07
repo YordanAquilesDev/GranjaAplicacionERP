@@ -17,7 +17,8 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     }
     @Override
-    public Cliente guardar(Cliente cliente) {
+    public int guardar(Cliente cliente) {
+        int filaAfecta=-1;
         try{
             String sql = """
                     INSERT INTO cliente
@@ -31,18 +32,24 @@ public class ClienteRepositoryImpl implements ClienteRepository {
             preparar.setString(3,cliente.getDni());
             preparar.setString(4, cliente.getCelular());
             preparar.setString(5,cliente.getDireccion());
+            filaAfecta=preparar.executeUpdate();
 
-            ResultSet resultado = preparar.executeQuery();
-            resultado.next();
-            int idGenerado= resultado.getInt("id_cliente");
-            cliente.setIdCliente(idGenerado);
-            return cliente;
+           return filaAfecta;
 
 
         }catch(Exception e){
             e.printStackTrace();
+        } finally{
+            try{
+                if(conexion!=null){conexion.close();}
+
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
         }
-        return null;
+        return filaAfecta;
     }
 
     @Override
@@ -74,6 +81,25 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     @Override
     public void borrarCliente(Cliente cliente) {
 
+    }
+
+    @Override
+    public int updateCliente(Cliente cliente) {
+        PreparedStatement preparar;
+        int filaAfecta=-1;
+        try{
+            String sql= """
+                    UPDATE cliente
+                    SET nombre=?,apellido=?,dni=?,celular=?,direccion=?
+                    WHERE id_cliente = ?;
+                    """;
+            preparar=conexion.prepareStatement(sql);
+            filaAfecta=preparar.executeUpdate();
+            return filaAfecta;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
     }
 
     @Override

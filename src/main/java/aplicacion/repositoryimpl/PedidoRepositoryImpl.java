@@ -111,4 +111,9 @@ public class PedidoRepositoryImpl implements PedidoRepository {
         }
 
     }
+
+    @Override
+    public int updatePedido(Pedido pedido) {
+        return 0;
+    }
 }

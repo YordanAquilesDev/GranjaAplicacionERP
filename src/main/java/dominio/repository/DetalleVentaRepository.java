@@ -1,6 +1,9 @@
 package dominio.repository;
 
+import dominio.modelos.DetalleVenta;
+
 import java.sql.Date;
+import java.util.List;
 
 public interface DetalleVentaRepository{
 

@@ -76,7 +76,7 @@ public class CompraRepositoryImpl implements CompraRepository {
             PreparedStatement preparar = conexion.prepareStatement(sql);
             ResultSet resultado = preparar.executeQuery();
             while (resultado.next()) {
-                Proveedor p = new Proveedor();
+                Proveedor p;
                 p = proveedorRepository.buscarPorId(
                         resultado.getInt("id_proveedor"));
 

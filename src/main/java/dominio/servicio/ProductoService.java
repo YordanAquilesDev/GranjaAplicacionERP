@@ -7,7 +7,7 @@ import java.util.List;
 public interface ProductoService {
     Producto guardarUnProducto(Producto producto);
 
-    Producto obtenerUnProductoPorId(Long id);
+    Producto obtenerUnProductoPorId(int id);
 
     List<Producto> obtenerTodosLosProductos();
 

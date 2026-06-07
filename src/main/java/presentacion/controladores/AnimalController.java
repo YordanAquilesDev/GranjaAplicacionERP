@@ -1,5 +1,6 @@
 package presentacion.controladores;
 
+import aplicacion.serviceimpl.AnimalServiceImpl;
 import dominio.modelos.Animal;
 import dominio.servicio.AnimalService;
 import javafx.collections.FXCollections;
@@ -15,6 +16,11 @@ import javafx.scene.input.MouseEvent;
 import java.util.List;
 
 public class AnimalController {
+    // Dependencia del Dominio (Service)
+    private final AnimalService animalService;
+    public AnimalController() {
+        this.animalService = new AnimalServiceImpl();
+    }
 
     // Componentes FXML
     @FXML private TextField txtId;
@@ -29,25 +35,19 @@ public class AnimalController {
     @FXML private TableColumn<Animal, String> colRaza;
 
     // Dependencia del Dominio (Service)
-    private final AnimalService animalService;
+
     
     // Lista observable para la UI
     private ObservableList<Animal> listaAnimales;
 
-    // NOTA: Si usas un contenedor de Inyección de Dependencias, maneja esto según tu framework.
-    // Para este ejemplo guía, asumimos que se inicializa o se inyecta la implementación.
-    public AnimalController(AnimalService animalService) {
-        this.animalService = animalService;
-    }
-    
-    // Constructor por defecto requerido por JavaFX si no usas Factory de controladores
-    public AnimalController() {
-        // Aquí deberías vincular tu implementación real del servicio temporalmente si no usas DI.
-        this.animalService = null; 
-    }
+
+
 
     @FXML
     public void initialize() {
+
+        System.out.println("INICIANDO ANIMALES");
+        System.out.println("ESTAS EN LA UI ANIMAL.fxml");
         // 1. Configurar cómo se van a llenar las columnas con las propiedades de 'Animal'
         colId.setCellValueFactory(new PropertyValueFactory<>("idAnimal"));
         colEspecie.setCellValueFactory(new PropertyValueFactory<>("especie"));
@@ -60,8 +60,18 @@ public class AnimalController {
     private void cargarDatosTabla() {
         if (animalService != null) {
             List<Animal> animales = animalService.obtenerTodosLosAnimales();
+            for(Animal animal : animales) {
+                if(animal != null) {
+                    System.out.println(animal.getEspecie());
+                }else{
+                    System.out.println( "no ay nada esta nulo");
+                }
+            }
             listaAnimales = FXCollections.observableArrayList(animales);
             tblAnimales.setItems(listaAnimales);
+        }else{
+            System.out.println("No se encontro el animalService");
+
         }
     }
 
@@ -114,4 +124,5 @@ public class AnimalController {
             txtRaza.setText(animalSeleccionado.getRaza());
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package aplicacion.repositoryimpl;
 
+import dominio.modelos.Pedido;
 import dominio.modelos.Producto;
 import dominio.repository.ProductoRepository;
 import presentacion.app.ConexionPostgresSQL;
@@ -71,5 +72,10 @@ public class ProductoRepositoryImpl implements ProductoRepository {
     @Override
     public List<Producto> listaProductosPorAcavar() {
         return List.of();
+    }
+
+    @Override
+    public int updateProducto(Pedido pedido) {
+        return 0;
     }
 }

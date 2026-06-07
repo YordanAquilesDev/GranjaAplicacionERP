@@ -10,5 +10,5 @@ public interface ProveedorRepository {
     Proveedor Actualizar(Proveedor proveedor);
     Proveedor Eliminar(long id);
     List<Proveedor> listarProveedores();
-
+  int updateProveedor(Proveedor proveedor);
 }

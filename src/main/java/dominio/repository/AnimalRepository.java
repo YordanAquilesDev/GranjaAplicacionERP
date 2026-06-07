@@ -5,9 +5,12 @@ import dominio.modelos.Animal;
 import java.util.List;
 
 public interface AnimalRepository {
-    Animal guardarAnimal(Animal animal);
-    Animal traerAnimalPorId(Integer id);
+
+    int save(Animal animal);
+    int update(Animal animal);
+    int delete(int id);
+    Animal finById(Integer id);
     List<Animal> traerAnimalesPorConsumo();
-    List<Animal> traerTodosAnimales();
+    List<Animal> finAll();
 
 }

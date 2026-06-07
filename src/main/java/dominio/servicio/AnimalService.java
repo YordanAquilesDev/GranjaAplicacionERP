@@ -5,10 +5,16 @@ import dominio.modelos.Animal;
 import java.util.List;
 
 public interface AnimalService {
-    Animal guardarAnimal(Animal animal);
+    int  guardarAnimal(Animal animal);
 
-    Animal obtenerAnimalPorId(Long id);
+    int actualizarAnimal(Animal animal);
+
+    int eliminarAnimal(int animal);
+
+    Animal obtenerAnimalPorId(int id);
 
     List<Animal> obtenerTodosLosAnimales();
+
+    List<Animal> traerPorConsumo();
 
 }

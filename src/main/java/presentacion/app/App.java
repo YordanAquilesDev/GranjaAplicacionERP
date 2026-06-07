@@ -17,7 +17,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("presentacion/fxml/Home"), 640, 480);
+        scene = new Scene(loadFXML("/presentacion/fxml/Home"), 640, 480);
+        System.out.println("LA VENTANANA ESTA AVIERTA");
         stage.setScene(scene);
         stage.show();
     }
@@ -26,19 +27,21 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-   private static Parent loadFXML(String fxml) throws IOException {
-          System.out.println("Ruta +" + fxml);
-    // Buscamos el recurso usando el ClassLoader del hilo actual para saltar restricciones del módulo
-    java.net.URL url = Thread.currentThread().getContextClassLoader().getResource(fxml + ".fxml");
-  
-    
-    if (url == null) {
-        throw new IOException("No se encontró el archivo FXML. Revisa que esté en src/main/resources/" + fxml + ".fxml");
+    private static Parent loadFXML(String fxml) throws IOException {
+        String rutaCorregida = fxml.startsWith("/") ? fxml : "/" + fxml;
+        rutaCorregida = rutaCorregida + ".fxml";
+
+        System.out.println("Intentando cargar desde el Módulo: " + rutaCorregida);
+
+        java.net.URL url = App.class.getResource(rutaCorregida);
+
+        if (url == null) {
+            throw new IOException("El sistema de módulos bloqueó el recurso o no existe en target: " + rutaCorregida);
+        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(url);
+        return fxmlLoader.load();
     }
-    
-    FXMLLoader fxmlLoader = new FXMLLoader(url);
-    return fxmlLoader.load();
-}
 
     public static void main(String[] args) {
         launch();

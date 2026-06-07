@@ -58,7 +58,7 @@ public class LoteAnimalImpl implements LoteAnimalRepository {
             resultado.next();
             return new LoteAnimal(
                     resultado.getInt("id_lote"),
-                    animalRepository.traerAnimalPorId(resultado.getInt("id_animal")),
+                    animalRepository.finById(resultado.getInt("id_animal")),
                     resultado.getDate("fecha_inicio"),
                     resultado.getInt("cantidad_inicio"),
                     resultado.getInt("cantidad_actual"),
@@ -71,8 +71,23 @@ public class LoteAnimalImpl implements LoteAnimalRepository {
 
     }
 
-    public int updateLoteCantidadAnimalActual(int cantidadActual){
+    @Override
+    public int updateLoteCantidadAnimalActual(int id, int cantidadActual) {
+        PreparedStatement preparar;
+        try{
+            String sql ="""
+                    UPDATE lote_animal
+                    SET cantidad_actual=?;
+            """;
+            preparar=conexion.prepareStatement(sql);
+            preparar.setInt(1, cantidadActual);
+            return  preparar.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public int updateLoteCantidadAnimalActual(int cantidadActual){
         try{
             String sql="""
                 UPDATE lote_animal
@@ -81,10 +96,10 @@ public class LoteAnimalImpl implements LoteAnimalRepository {
             """;
             PreparedStatement preparar = conexion.prepareStatement(sql);
             preparar.setInt(1,cantidadActual);
-            int filasAfectadas= preparar.executeUpdate();
+            return  preparar.executeUpdate();
 
-        
-
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
     }

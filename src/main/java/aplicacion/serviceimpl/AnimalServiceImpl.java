@@ -14,55 +14,46 @@ public class AnimalServiceImpl implements AnimalService {
         this.animalRepository = new AnimalRepositoryImpl();
     }
 
-    // Funciona Correctamente
-    // Cumple con su Objetivo de guardar en la DB
-    // Faltaria aser pruevas más específico para decubrir
-    // algún error
-    public Animal guardarAnimal(Animal animal) {
-        /*
-         * El metodo guardarAnimal resive
-         * objeto de la Clase Animal
-         * para guardarlo en la Base de Datos
-         */
+    @Override
+    public int guardarAnimal(Animal animal) {
         if (animal == null) {
-            return null;
+            return -1;
         }
-
         if (animal.getRaza() == null || animal.getEspecie() == null) {
-            return null;
-
+            return -1;
         } else {
-            return animalRepository.guardarAnimal(animal);
+            return animalRepository.save(animal);
 
         }
     }
 
-    // Funciona Correctamente
-    // Cumple con su Objetivo de guardar en la DB
-    // Faltaria aser pruevas más específico para decubrir
-    // algún error
-    public Animal obtenerAnimalPorId(Long id) {
-        /*
-         * El metodo obtenerAnimalPorId recive como parametro un
-         * Long que será usado en el metodo
-         * traerAnimalPorId este retorna un Objeto Animal de la
-         * clase Animal
-         */
-        Integer idNativo = Integer.parseInt(id.toString());
-        return animalRepository.traerAnimalPorId(idNativo);
+    @Override
+    public int actualizarAnimal(Animal animal) {
+        if (animal == null) {return -1;}
+        if (animal.getRaza() == null || animal.getEspecie() == null) {return -1;}
+        return animalRepository.update(animal);
     }
 
-    // Funciona Correctamente
-    // Cumple con su Objetivo de guardar en la DB
-    // Faltaria aser pruevas más específico para decubrir
-    // algún error
+    @Override
+    public int eliminarAnimal(int id) {
+        if (id < 0) {return -1;}
+        return animalRepository.delete(id);
+    }
+
+    @Override
+    public Animal obtenerAnimalPorId(int id) {
+        if (id < 0) {return null;}
+        return animalRepository.finById(id);
+    }
+
+    @Override
     public List<Animal> obtenerTodosLosAnimales() {
-        /*
-         * El metodo obtenerTodosLosAnimales
-         * trae todas las filas de la tabla animal
-         * de la base de datos granjadb
-         */
-        return animalRepository.traerTodosAnimales();
+        return animalRepository.finAll();
+    }
+
+    @Override
+    public List<Animal> traerPorConsumo(){
+        return animalRepository.traerAnimalesPorConsumo();
     }
 
 }

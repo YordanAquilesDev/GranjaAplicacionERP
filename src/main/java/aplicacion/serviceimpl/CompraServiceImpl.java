@@ -37,6 +37,7 @@ public class CompraServiceImpl implements CompraService {
     }
 
     public List<Compra> obtenerTodasLasCompras() {
+        System.out.println("estamos en Compraslistas service");
         return compraRepository.listarCompras();
     }
 

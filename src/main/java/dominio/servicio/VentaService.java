@@ -7,7 +7,7 @@ import java.util.List;
 public interface VentaService {
     Venta guardarUnaVenta(Venta venta);
 
-    Venta obtenerUnaVentaPorId(Long id);
+    Venta obtenerUnaVentaPorId(int id);
 
     List<Venta> obtenerTodasLasVentas();
 

@@ -20,42 +20,103 @@ public class AnimalRepositoryImpl implements AnimalRepository {
     }
 
     @Override
-    public Animal guardarAnimal(Animal animal) {
+    public int save(Animal animal) {
+        Connection conexionPostgres= null;
+        PreparedStatement preparar=null;
+        int filasAfectadas = 0;
         try {
             String sql = """
                     INSERT INTO animal (especie,raza) VALUES
                                             (?,?)
-                    RETURNING *;
+                   ;
                     """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
+            conexionPostgres = ConexionPostgresSQL.getConexion();
+            preparar = conexionPostgres.prepareStatement(sql);
             preparar.setString(1, animal.getEspecie());
             preparar.setString(2, animal.getRaza());
-            //El ResulSet no tiene nada
-         ResultSet resultado = preparar.executeQuery();
-         if(resultado.next()){
-             resultado.getInt("id_animal");
-             animal.setIdAnimal(resultado.getInt("id_animal"));
-
-         }else{
-             System.out.println("LA DB NO RETORNO DATOS PARA EL RESULSET");
-         }
-            return animal;
+            filasAfectadas = preparar.executeUpdate();
+            return filasAfectadas;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return 0;
 
+        }finally {
+            try{
+                if(preparar!=null){preparar.close();}
+                if(conexionPostgres!=null){conexionPostgres.close();}
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
 
     @Override
-    public Animal traerAnimalPorId(Integer id) {
+    public int update(Animal animal) {
+        Connection conexionPostgres= null;
+        PreparedStatement preparar=null;
+        try{
+            String sql = """
+                    UPDATE animal
+                    SET especie = ?,raza = ?
+                    WHERE id = ?;
+            """;
+            conexionPostgres = ConexionPostgresSQL.getConexion();
+            preparar= conexionPostgres.prepareStatement(sql);
+
+            return preparar.executeUpdate();
+        } catch (SQLException e) {
+            return -1;
+        }finally {
+            try{
+                if(preparar!=null){preparar.close();}
+                if(conexionPostgres!=null){conexionPostgres.close();}
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    @Override
+    public int delete(int id) {
+        Connection conexionPostgres= null;
+        PreparedStatement preparar=null;
+        try{
+            String sql = """
+                  DELETE FROM animal WHERE id = ?;
+                  
+            """;
+            conexionPostgres = ConexionPostgresSQL.getConexion();
+            preparar= conexionPostgres.prepareStatement(sql);
+
+            return preparar.executeUpdate();
+        } catch (SQLException e) {
+            return -1;
+        }finally {
+            try{
+                if(preparar!=null){preparar.close();}
+                if(conexionPostgres!=null){conexionPostgres.close();}
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public Animal finById(Integer id) {
+        Connection conexionPostgres= null;
+        PreparedStatement preparar=null;
         try {
             String sql = """
                             SELECT * FROM Animal WHERE id_animal=? ;
                     """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
+            conexionPostgres = ConexionPostgresSQL.getConexion();
+            preparar = conexionPostgres.prepareStatement(sql);
             preparar.setInt(1, id);
             ResultSet resultado = preparar.executeQuery();
             resultado.next();
@@ -66,6 +127,13 @@ public class AnimalRepositoryImpl implements AnimalRepository {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            try{
+                if(preparar!=null){preparar.close();}
+                if(conexionPostgres!=null){conexionPostgres.close();}
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
         }
 
@@ -73,6 +141,9 @@ public class AnimalRepositoryImpl implements AnimalRepository {
 
     @Override
     public List<Animal> traerAnimalesPorConsumo() {
+        Connection conexionPostgres= null;
+        PreparedStatement preparar=null;
+        ResultSet resultado=null;
         List<Animal> animales = new ArrayList<>();
         try {
             String sql = """
@@ -83,8 +154,9 @@ public class AnimalRepositoryImpl implements AnimalRepository {
                              ORDER BY c.cantidad DESC
                              LIMIT 3;
                     """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
-            ResultSet resultado = preparar.executeQuery();
+            conexionPostgres = ConexionPostgresSQL.getConexion();
+           preparar = conexionPostgres.prepareStatement(sql);
+           resultado = preparar.executeQuery();
             while (resultado.next()) {
                 animales.add(new Animal(resultado.getInt("id_animal"),
                         resultado.getString("especie"),
@@ -94,19 +166,30 @@ public class AnimalRepositoryImpl implements AnimalRepository {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            try{
+                if(preparar!=null) {preparar.close();}
+                if(conexionPostgres!=null){conexionPostgres.close();}
+                if(resultado!=null){resultado.close();}
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
 
     @Override
-    public List<Animal> traerTodosAnimales() {
+    public List<Animal> finAll() {
+        Connection conexionPostgres= null;
+        PreparedStatement preparar=null;
+        ResultSet resultado=null;
         List<Animal> animales = new ArrayList<>();
         try {
             String sql = """
                             SELECT * FROM animal;
                     """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
-            ResultSet resultado = preparar.executeQuery();
+             preparar = conexion.prepareStatement(sql);
+            resultado = preparar.executeQuery();
             while (resultado.next()) {
                 animales.add(new Animal(resultado.getInt("id_animal"),
                         resultado.getString("especie"),
@@ -116,6 +199,14 @@ public class AnimalRepositoryImpl implements AnimalRepository {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally{
+            try{
+                if(preparar!=null) {preparar.close();}
+                if(conexionPostgres!=null){conexionPostgres.close();}
+                if(resultado!=null){resultado.close();}
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

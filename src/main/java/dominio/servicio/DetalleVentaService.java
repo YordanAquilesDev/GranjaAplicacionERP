@@ -5,7 +5,7 @@ import dominio.modelos.DetalleVenta;
 import java.util.List;
 
 public interface DetalleVentaService {
-    DetalleVenta guardarUnDetalleVenta(DetalleVenta detalleVenta);
+    int  guardarUnDetalleVenta(DetalleVenta detalleVenta);
 
     DetalleVenta obtenerUnDetalleVentaPorId(Long id);
 

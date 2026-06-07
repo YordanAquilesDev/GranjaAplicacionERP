@@ -17,12 +17,11 @@ import presentacion.app.ConexionPostgresSQL;
 
 public class DetalleCompraRepositoryImpl implements DetalleCompraRepository {
     Connection conexion;
-    private final CompraRepository compraRepository;
+
     private final ProductoRepository productoRepository;
 
     public DetalleCompraRepositoryImpl() {
         this.conexion = ConexionPostgresSQL.getConexion();
-        this.compraRepository = new CompraRepositoryImpl();
         this.productoRepository = new ProductoRepositoryImpl();
     }
 
@@ -86,7 +85,7 @@ public class DetalleCompraRepositoryImpl implements DetalleCompraRepository {
                 if (temp < rs.getInt("id_detalle")) {
                     detalles.add(new DetalleCompra(
                             rs.getInt("id_detalle"),
-                            compraRepository.traerCompraPorId(rs.getInt("id_compra")),
+                            null,
                             productos,
                             cantidades,
                             subtotals));
@@ -124,7 +123,7 @@ public class DetalleCompraRepositoryImpl implements DetalleCompraRepository {
                 if (rs.next()) {
                     return new DetalleCompra(
                             rs.getInt("id_detalle"), // entero
-                            compraRepository.traerCompraPorId(rs.getInt("id_compra")),
+                           null,
                             productos,
                             cantidades,
                             subtotals);
@@ -158,7 +157,7 @@ public class DetalleCompraRepositoryImpl implements DetalleCompraRepository {
                 if (temp < rs.getInt("id_detalle")) {
                     detalles.add(new DetalleCompra(
                             rs.getInt("id_detalle"),
-                            compraRepository.traerCompraPorId(rs.getInt("id_compra")),
+                            null,
                             productos,
                             cantidades,
                             subtotals));

@@ -7,6 +7,6 @@ public interface LoteAnimalRepository {
 
     LoteAnimal  traerPorId(int id);
   
-    int updateLoteCantidadAnimalActual(int cantidadActual);
-    
+    int updateLoteCantidadAnimalActual(int id,int cantidadActual);
+
 }

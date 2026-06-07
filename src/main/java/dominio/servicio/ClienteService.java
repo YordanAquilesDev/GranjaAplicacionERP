@@ -5,7 +5,7 @@ import dominio.modelos.Cliente;
 import java.util.List;
 
 public interface ClienteService {
-    Cliente guardarCliente(Cliente cliente);
+    int guardarCliente(Cliente cliente);
 
     Cliente obtenerClientePorId(Long id);
 
