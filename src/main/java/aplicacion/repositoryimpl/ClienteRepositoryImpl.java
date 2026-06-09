@@ -1,48 +1,52 @@
 package aplicacion.repositoryimpl;
 
-import dominio.modelos.Animal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import dominio.modelos.Cliente;
 import dominio.repository.ClienteRepository;
 import presentacion.app.ConexionPostgresSQL;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
 public class ClienteRepositoryImpl implements ClienteRepository {
     Connection conexion;
+
     public ClienteRepositoryImpl() {
- 
-        this.conexion= ConexionPostgresSQL.getConexion();
+
+        this.conexion = ConexionPostgresSQL.getConexion();
 
     }
+
     @Override
     public int guardar(Cliente cliente) {
-        int filaAfecta=-1;
-        try{
+        int filaAfecta = -1;
+        try {
             String sql = """
                     INSERT INTO cliente
                         (nombre,apellido,dni,celular,direccion)
-                    VALUES 
+                    VALUES
                                             (?,?,?,?,?) RETURNING id_cliente;
                     """;
             PreparedStatement preparar = conexion.prepareStatement(sql);
             preparar.setString(1, cliente.getNombre());
             preparar.setString(2, cliente.getApellido());
-            preparar.setString(3,cliente.getDni());
+            preparar.setString(3, cliente.getDni());
             preparar.setString(4, cliente.getCelular());
-            preparar.setString(5,cliente.getDireccion());
-            filaAfecta=preparar.executeUpdate();
+            preparar.setString(5, cliente.getDireccion());
+            filaAfecta = preparar.executeUpdate();
 
-           return filaAfecta;
+            return filaAfecta;
 
-
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally{
-            try{
-                if(conexion!=null){conexion.close();}
-
+        } finally {
+            try {
+                if (conexion != null) {
+                    conexion.close();
+                }
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -54,23 +58,21 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public Cliente traerPorId(Integer id) {
-        try{
-            String sql= """
+        try {
+            String sql = """
                     SELECT * FROM cliente WHERE id_cliente = ?;
                     """;
-            PreparedStatement preparar= conexion.prepareStatement(sql);
+            PreparedStatement preparar = conexion.prepareStatement(sql);
             preparar.setInt(1, id);
             ResultSet resultado = preparar.executeQuery();
             resultado.next();
-            return  new Cliente(
+            return new Cliente(
                     resultado.getInt("id_cliente"),
                     resultado.getString("nombre"),
                     resultado.getString("apellido"),
                     resultado.getString("celular"),
                     resultado.getString("dni"),
-                    resultado.getString("direccion")
-            );
-
+                    resultado.getString("direccion"));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -86,15 +88,15 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     @Override
     public int updateCliente(Cliente cliente) {
         PreparedStatement preparar;
-        int filaAfecta=-1;
-        try{
-            String sql= """
+        int filaAfecta = -1;
+        try {
+            String sql = """
                     UPDATE cliente
                     SET nombre=?,apellido=?,dni=?,celular=?,direccion=?
                     WHERE id_cliente = ?;
                     """;
-            preparar=conexion.prepareStatement(sql);
-            filaAfecta=preparar.executeUpdate();
+            preparar = conexion.prepareStatement(sql);
+            filaAfecta = preparar.executeUpdate();
             return filaAfecta;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -104,24 +106,23 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public List<Cliente> listarClientes() {
-      List<Cliente> clientes = new ArrayList <>()  ;
-       try{
+        List<Cliente> clientes = new ArrayList<>();
+        try {
             String sql = """
-                    SELECT * FROM cliente;
-                    
-                    
-            """;
-            PreparedStatement preparar =conexion.prepareStatement(sql);
+                            SELECT * FROM cliente;
+
+
+                    """;
+            PreparedStatement preparar = conexion.prepareStatement(sql);
             ResultSet resultado = preparar.executeQuery();
-            while(resultado.next()){
+            while (resultado.next()) {
                 clientes.add(new Cliente(
                         resultado.getInt("id_cliente"),
                         resultado.getString("nombre"),
                         resultado.getString("apellido"),
                         resultado.getString("dni"),
                         resultado.getString("celular"),
-                        resultado.getString("direccion")
-                ));
+                        resultado.getString("direccion")));
 
             }
             return clientes;

@@ -1,11 +1,11 @@
-package aplicacion.ServiceImpl;
+package aplicacion.serviceimpl;
 
 import java.util.List;
 
 import aplicacion.repositoryimpl.DetalleCompraRepositoryImpl;
 import dominio.modelos.DetalleCompra;
-import dominio.servicio.DetalleCompraService;
 import dominio.repository.DetalleCompraRepository;
+import dominio.servicio.DetalleCompraService;
 
 public class DetalleCompraServiceImpl implements DetalleCompraService {
     private final DetalleCompraRepository detalleCompraRepository;

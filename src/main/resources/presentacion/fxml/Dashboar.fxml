@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controladores.DashboardController" HBox.hgrow="ALWAYS">
+<HBox spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentacion.controller.DashboardController" HBox.hgrow="ALWAYS">
     <children>
 
         <VBox prefWidth="480.0" styleClass="content-area" HBox.hgrow="ALWAYS">

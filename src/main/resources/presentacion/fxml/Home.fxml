@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -19,218 +20,67 @@
       styleClass="main-container"
       xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="presentacion.controladores.HomeController">
+      fx:controller="presentacion.controller.HomeController">
 
     <children>
-        <VBox prefWidth="220.0" styleClass="sidebar">
+        <VBox>
             <children>
+
                 <VBox styleClass="profile-container">
                     <children>
                         <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/granja.png" />
-                            </image>
+                            <image><Image url="@../image/granja.png" /></image>
                         </ImageView>
                     </children>
                 </VBox>
-
-                <!-- Home -->
-                <Button fx:id="btnHome" onAction="#navegarHome" text="Home" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/hogar.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-                <!-- Pedidos -->
-                <Button fx:id="btnPedidos" onAction="#navegarPedidos" text="Pedidos" maxWidth="1.7976931348623157E308" styleClass="menu-button-active">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/auriculares.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-
-                <!-- Lote Animal -->
-                <Button fx:id="btnLote" onAction="#navegarLotes" text="Lotes Animales" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/capas.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-                <!-- Granja -->
-                <Button fx:id="btnGranja" onAction="#navegarGranja" text="Granja" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/ojo.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-                <!-- Movimientos -->
-                <Button fx:id="btnMovim" onAction="#navegarMovimientos" text="Movimientos" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/editar.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-                <!-- Compra-->
-                <Button fx:id="btnCompra" onAction="#navegarCompras" text="Compras" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/carro-de-la-compra.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-                <!-- animales-->
-                <Button fx:id="btnCompra" onAction="#navegarAnimales" text="Animales" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/editar.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-                <!-- Venta-->
-                <Button fx:id="btnVenta" onAction="#navegarVentas" text="Ventas" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/dinero.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-
-                <!-- Clientes-->
-                <Button fx:id="btnClientes" onAction="#navegarClientes" text="Clientes" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/usuarios.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-                <!-- Proveedor-->
-                <Button fx:id="btnProveedor" onAction="#navegarProveedores" text="Proveedores" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/avatar.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-                <!-- Carga Datos-->
-                <Button fx:id="btnCarga" onAction="#navegarCargaDatos" text="Carga Datos" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/subir.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-                <!-- Stock-->
-                <Button fx:id="btnStock" onAction="#navegarStock" text="Almacen" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/biblioteca.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-                <!-- Salir-->
-                <Button fx:id="btnSalir" onAction="#Salir" text="Salir" maxWidth="1.7976931348623157E308" styleClass="menu-button">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/icon/cerrar-sesion.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-
- <!--               <Pane VBox.vgrow="ALWAYS" />
-
-                <Button fx:id="btnLogout" text="Logout" maxWidth="1.7976931348623157E308" styleClass="logout-button" />
-            </children>
-        </VBox>
-
-        <VBox prefWidth="480.0" styleClass="content-area" HBox.hgrow="ALWAYS">
-            <children>
-                <Label text="Dashboard" styleClass="main-title" />
-
-                <VBox styleClass="chart-card">
+                <VBox styleClass="menu-container">
                     <children>
-                        <HBox>
-                            <children>
-                                <Label text="Activity" styleClass="card-title" />
-                                <Pane HBox.hgrow="ALWAYS" />
-                                <Label text="Year / Month" styleClass="card-subtitle" />
-                            </children>
-                        </HBox>
-                        <LineChart fx:id="graficoBalance" prefHeight="400.0" prefWidth="850.0">
-                            <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
-                            <yAxis><NumberAxis side="LEFT" /></yAxis>
-                        </LineChart>
+                        <Button fx:id="btnHome" onAction="#navegarHome" text="Home" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/hogar.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Region> </Region>
+                        <Button fx:id="btnPedidos" onAction="#navegarPedidos" text="Pedidos" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/auriculares.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Button fx:id="btnLote" onAction="#navegarLotes" text="Lotes Animales" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/capas.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Button fx:id="btnGranja" onAction="#navegarGranja" text="Granja" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/ojo.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Button fx:id="btnMovim" onAction="#navegarMovimientos" text="Movimientos" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/editar.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Button fx:id="btnCompra" onAction="#navegarCompras" text="Compras" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/carro-de-la-compra.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Button fx:id="btnAnimales" onAction="#navegarAnimales" text="Animales" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/editar.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Button fx:id="btnVenta" onAction="#navegarVentas" text="Ventas" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/dinero.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Button fx:id="btnClientes" onAction="#navegarClientes" text="Clientes" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/usuarios.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Button fx:id="btnProveedor" onAction="#navegarProveedores" text="Proveedores" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/avatar.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Button fx:id="btnCarga" onAction="#navegarCargaDatos" text="Carga Datos" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/subir.png" /></image></ImageView></graphic>
+                        </Button>
+                        <Button fx:id="btnStock" onAction="#navegarStock" text="Almacen" maxWidth="1.7976931348623157E308" styleClass="menu-button">
+                            <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/biblioteca.png" /></image></ImageView></graphic>
+                        </Button>
                     </children>
                 </VBox>
 
-                <VBox styleClass="chart-card">
-                    <children>
-                        <Label text="Performance Statistics" styleClass="card-title" />
-                        <BarChart prefHeight="160.0">
-                            <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
-                            <yAxis><NumberAxis side="LEFT" /></yAxis>
-                        </BarChart>
-                    </children>
-                </VBox>
-            </children>
-        </VBox>
+                <Region VBox.vgrow="ALWAYS" />
 
-        <VBox prefWidth="250.0" styleClass="right-sidebar">
-            <children>
-                <VBox styleClass="info-card" prefHeight="220.0">
-                    <children>
-                        <Label text="Calendar / Tasks" styleClass="card-title" />
-                    </children>
-                </VBox>
+                <Button fx:id="btnSalir" onAction="#Salir" text="Salir" maxWidth="1.7976931348623157E308" styleClass="menu-button, exit-button">
+                    <graphic><ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../image/icon/cerrar-sesion.png" /></image></ImageView></graphic>
+                </Button>
 
-                <VBox styleClass="info-card" prefHeight="220.0">
-                    <children>
-                        <Label text="Expenses Summary" styleClass="card-title" />
-                    </children>
-                </VBox>-->
             </children>
         </VBox>
         <StackPane fx:id="contenedorPrincipal" HBox.hgrow="ALWAYS" styleClass="main-content-wrapper" />

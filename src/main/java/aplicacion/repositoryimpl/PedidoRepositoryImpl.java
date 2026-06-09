@@ -113,6 +113,37 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     }
 
     @Override
+    public List<Pedido> listarTodosLosPedidos() {
+        List<Pedido> listaPedidosNoEntregados = new ArrayList<>();
+        Connection conexion = null;
+        PreparedStatement preparar = null;
+        ResultSet resultado = null;
+        try {
+            String sql = """
+                    SELECT * FROM Pedido
+                
+            """;
+            conexion = ConexionPostgresSQL.getConexion();
+            preparar = conexion.prepareStatement(sql);
+            resultado = preparar.executeQuery();
+            while (resultado.next()) {
+                listaPedidosNoEntregados.add(new Pedido(
+                        resultado.getInt("id_pedido"),
+                        resultado.getDate("fecha"),
+                        clienteRepository.traerPorId(resultado.getInt("id_cliente")),
+                        resultado.getString("estado"),
+                        resultado.getDouble("total")
+                ));
+
+            }
+            return listaPedidosNoEntregados;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public int updatePedido(Pedido pedido) {
         return 0;
     }

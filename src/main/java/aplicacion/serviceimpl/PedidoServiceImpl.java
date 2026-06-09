@@ -1,11 +1,17 @@
 package aplicacion.serviceimpl;
 
+import aplicacion.repositoryimpl.PedidoRepositoryImpl;
 import dominio.modelos.Pedido;
+import dominio.repository.PedidoRepository;
 import dominio.servicio.PedidoService;
 
 import java.util.List;
 
 public class PedidoServiceImpl implements PedidoService {
+    private PedidoRepository pedidoRepository;
+    public PedidoServiceImpl() {
+        this.pedidoRepository = new PedidoRepositoryImpl();
+    }
     @Override
     public Pedido guardarUnPedido(Pedido pedido) {
         return null;
@@ -18,16 +24,17 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public List<Pedido> obtenerTodosLosPedidos() {
-        return List.of();
+        return pedidoRepository.listarTodosLosPedidos();
     }
 
     @Override
     public List<Pedido> obtenerPedidosEntregados() {
-        return List.of();
+        return pedidoRepository.listarPedidosEntregados();
     }
 
     @Override
     public List<Pedido> obtenerPedidosNoEntregados() {
-        return List.of();
+
+        return pedidoRepository.listarPedidosNoEntregados();
     }
 }

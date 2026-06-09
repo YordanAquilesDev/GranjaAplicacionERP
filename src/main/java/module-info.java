@@ -9,8 +9,8 @@ module com.mackas.granja {
     opens presentacion.app to javafx.fxml, javafx.graphics;
     
     // Si tus controladores están en otro paquete, asegúrate de abrirlos también para que cargue el FXML:
-    exports presentacion.controladores;
-    opens presentacion.controladores to javafx.fxml;
+    exports presentacion.controller;
+    opens presentacion.controller to javafx.fxml;
 
     // 🌟 ¡ESTA ES LA LÍNEA QUE TE FALTA! 🌟
     // Le da permiso al motor de tablas de JavaFX de leer las propiedades de tu clase Animal

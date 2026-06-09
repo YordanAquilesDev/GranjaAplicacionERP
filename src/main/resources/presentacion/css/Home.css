@@ -1,103 +1,83 @@
-/* Contenedor principal de la ventana */
+/* ==========================================================================
+   CONTENEDOR PRINCIPAL DEL SISTEMA
+   ========================================================================== */
 .main-container {
-    -fx-background-color: #F4F6F9;
+    -fx-background-color: #f8fafc; /* Fondo gris muy claro para el área de trabajo */
 }
 
-/* Menú lateral izquierdo */
+/* ==========================================================================
+   BARRA LATERAL (SIDEBAR)
+   ========================================================================== */
 .sidebar {
-    -fx-background-color: #FFFFFF;
-    -fx-padding: 20;
-    -fx-spacing: 15;
+    -fx-background-color: #1e293b; /* Color oscuro profesional (Slate) */
+    -fx-padding: 15px 12px;        /* Margen interno para dar aire al contenido */
 }
 
+/* Contenedor del Logo de la Granja */
 .profile-container {
-    -fx-alignment: CENTER;
-    -fx-padding: 0 0 30 0;
+    -fx-alignment: center;
+    -fx-padding: 5px 0px 15px 0px;
 }
 
-/* Botones del menú lateral estándar */
+/* ==========================================================================
+   LISTA DE BOTONES DE NAVEGACIÓN
+   ========================================================================== */
+.menu-container {
+    -fx-spacing: 5px;             /* <-- SEPARACIÓN EXACTA ENTRE CADA BOTÓN */
+    -fx-alignment: top-center;
+}
+
+/* Estilo Base para TODOS los Botones (Activos e Inactivos) */
 .menu-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #7D8494;
-    -fx-font-size: 14px;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 12 15 12 15;
-    -fx-background-radius: 8;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #94a3b8;        /* Color gris suave para texto e iconos inactivos */
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+    -fx-padding: 25px 10px;        /* Altura interna del botón */
+    -fx-graphic-text-gap: 12px;    /* Separación entre el icono y el texto */
     -fx-cursor: hand;
 }
 
+/* Estado: Pasar el mouse sobre un botón inactivo */
 .menu-button:hover {
-    -fx-background-color: #F4F6F9;
-    -fx-text-fill: #1E75FF;
+    -fx-background-color: #334155; /* Fondo un poco más claro */
+    -fx-text-fill: #f8fafc;        /* Texto blanco brillante */
+    -fx-translate-x: 4px;         /* Efecto sutil de desplazamiento a la derecha */
 }
 
-/* Botón de la pantalla en la que estás actualmente (Azul de tu imagen) */
+/* ==========================================================================
+   BOTÓN ACTIVO (VISTA SELECCIONADA ACTUALMENTE)
+   ========================================================================== */
 .menu-button-active {
-    -fx-background-color: #1E75FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 14px;
+    -fx-background-color: #10b981; /* Verde Esmeralda Moderno */
+    -fx-background-radius: 6px;
+    -fx-text-fill: #ffffff;        /* Texto completamente blanco */
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 12 15 12 15;
-    -fx-background-radius: 8;
-}
-
-/* Botón de cerrar sesión */
-.logout-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #E63946;
-    -fx-font-size: 14px;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 12 15 12 15;
+    -fx-alignment: center-left;
+    -fx-padding: 40px 20px;
+    -fx-graphic-text-gap: 12px;
     -fx-cursor: hand;
+    /* Sombra interna para resaltar el botón seleccionado */
+    -fx-effect: dropshadow(three-pass-box, rgba(16, 185, 129, 0.4), 6, 0, 0, 2);
 }
 
-/* Sección Central de Gráficos */
-.content-area {
-    -fx-padding: 25;
-    -fx-spacing: 20;
+/* Estado: Pasar el mouse sobre el botón que YA está seleccionado */
+.menu-button-active:hover {
+    -fx-background-color: #059669; /* Verde ligeramente más oscuro para feedback */
 }
 
-.main-title {
-    -fx-font-size: 26px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #212529;
+/* ==========================================================================
+   BOTÓN DE SALIR (AL FINAL DE LA BARRA)
+   ========================================================================== */
+.exit-button {
+    -fx-text-fill: #f87171;        /* Color rojo suave */
 }
 
-/* Tarjetas contenedoras de los gráficos y widgets */
-.chart-card {
-    -fx-background-color: #FFFFFF;
-    -fx-background-radius: 10;
-    -fx-padding: 15;
-    -fx-spacing: 10;
-}
-
-.card-title {
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-    -fx-text-fill: #212529;
-}
-
-.card-subtitle {
-    -fx-text-fill: #888888;
-    -fx-font-size: 11px;
-}
-
-/* Columna Derecha e Info Cards */
-.right-sidebar {
-    -fx-padding: 25;
-    -fx-spacing: 20;
-}
-
-.info-card {
-    -fx-background-color: #FFFFFF;
-    -fx-background-radius: 10;
-    -fx-padding: 15;
-}
-
-/* Quita los círculos únicamente al gráfico que se llame graficoBalance */
-#graficoBalance .chart-line-symbol {
-    -fx-background-color: transparent;
-    -fx-background-radius: 0;
-    -fx-padding: 0;
-}
+/* Estado: Pasar el mouse sobre Salir */
+.exit-button:hover {
+    -fx-background-color
