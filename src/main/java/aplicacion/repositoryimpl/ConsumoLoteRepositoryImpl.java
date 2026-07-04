@@ -11,18 +11,16 @@ import java.util.Optional;
 
 import dominio.modelos.Animal;
 import dominio.modelos.ConsumoLote;
+import dominio.modelos.LoteAnimal;
 import dominio.modelos.Producto;
 import dominio.repository.JpaRepository;
+import dominio.servicio.JlaService;
 import presentacion.app.ConexionPostgresSQL;
 
 public class ConsumoLoteRepositoryImpl implements JpaRepository<ConsumoLote, Integer> {
     Connection conexion;
-    private final LoteAnimalRepository loteAnimal;
-    private final ProductoRepository producto;
 
     public ConsumoLoteRepositoryImpl() {
-        this.loteAnimal = new LoteAnimalImpl();
-        this.producto = new ProductoRepositoryImpl();
 
         this.conexion = ConexionPostgresSQL.getConexion();
 
@@ -49,16 +47,16 @@ public class ConsumoLoteRepositoryImpl implements JpaRepository<ConsumoLote, Int
                 if (Cambia) {
                     consumos.add(new ConsumoLote(
                             resultado.getInt("id_consumo"),
-                            loteAnimal.traerPorId(resultado.getInt("id_lote")),
+                            null,
                             resultado.getInt("cantidad"),
-                            productos,
+                            null,
                             resultado.getDate("fecha")
 
                     ));
                     productos = new ArrayList<>();
 
                 }
-                productos.add(producto.buscarPorId(resultado.getInt("id_producto")));
+                productos.add(null);
                 temp = valorAnterior;
             }
 
@@ -82,7 +80,7 @@ public class ConsumoLoteRepositoryImpl implements JpaRepository<ConsumoLote, Int
             if (resultado.next()) {
                 return new ConsumoLote(
                         resultado.getInt("id_consumo"),
-                        loteAnimal.traerPorId(resultado.getInt("id_lote")),
+                        null,
                         resultado.getInt("cantidad"),
                         null,
                         resultado.getDate("fecha"));
@@ -110,7 +108,7 @@ public class ConsumoLoteRepositoryImpl implements JpaRepository<ConsumoLote, Int
             while (resultado.next()) {
                 consumos.add(new ConsumoLote(
                         resultado.getInt("id_consumo"),
-                        loteAnimal.traerPorId(resultado.getInt("id_lote")),
+                       null,
                         resultado.getInt("cantidad"),
                         null,
                         resultado.getDate("fecha")));
@@ -165,7 +163,7 @@ public class ConsumoLoteRepositoryImpl implements JpaRepository<ConsumoLote, Int
             if (resultado.next()) {
                 return Optional.of(new ConsumoLote(
                         resultado.getInt("id_consumo"),
-                        loteAnimal.traerPorId(resultado.getInt("id_lote")),
+                        null,
                         resultado.getInt("cantidad"),
                         null,
                         resultado.getDate("fecha")));

@@ -1,6 +1,7 @@
 package aplicacion.repositoryimpl;
 
 import dominio.modelos.Proveedor;
+import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
 import java.sql.Connection;
@@ -8,8 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
-public class ProveedorRepositoryImpl implements ProveedorRepository {
+public class ProveedorRepositoryImpl implements JpaRepository<Proveedor,Integer   > {
    Connection c;
     public ProveedorRepositoryImpl() {
         this.c= ConexionPostgresSQL.getConexion();
@@ -58,5 +60,30 @@ public class ProveedorRepositoryImpl implements ProveedorRepository {
     @Override
     public int updateProveedor(Proveedor proveedor) {
         return 0;
+    }
+
+    @Override
+    public int saveAndFindId(Proveedor objeto) {
+        return 0;
+    }
+
+    @Override
+    public int update(Proveedor objeto) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public Optional<Proveedor> findById(Integer integer) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Proveedor> findAll() {
+        return List.of();
     }
 }

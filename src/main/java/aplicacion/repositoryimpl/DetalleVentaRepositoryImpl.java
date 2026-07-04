@@ -3,13 +3,15 @@ package aplicacion.repositoryimpl;
 import aplicacion.serviceimpl.ProductoServiceImpl;
 import aplicacion.serviceimpl.VentaServiceImpl;
 import dominio.modelos.DetalleVenta;
+import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
+public class DetalleVentaRepositoryImpl implements JpaRepository<DetalleVenta,Integer   > {
     private final VentaService ventaService;
     private final ProductoService productoService;
     public DetalleVentaRepositoryImpl() {
@@ -116,5 +118,30 @@ public class DetalleVentaRepositoryImpl implements DetalleVentaRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public int saveAndFindId(DetalleVenta objeto) {
+        return 0;
+    }
+
+    @Override
+    public int update(DetalleVenta objeto) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public Optional<DetalleVenta> findById(Integer integer) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<DetalleVenta> findAll() {
+        return List.of();
     }
 }

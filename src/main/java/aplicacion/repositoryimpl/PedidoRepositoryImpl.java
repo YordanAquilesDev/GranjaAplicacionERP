@@ -1,6 +1,7 @@
 package aplicacion.repositoryimpl;
 
 import dominio.modelos.Pedido;
+import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
 import java.sql.Connection;
@@ -9,8 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class PedidoRepositoryImpl implements PedidoRepository {
+public class PedidoRepositoryImpl implements JpaRepository<Pedido,Integer   > {
 
     Connection conexion;
     private final ClienteRepository clienteRepository;
@@ -144,5 +146,30 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     @Override
     public int updatePedido(Pedido pedido) {
         return 0;
+    }
+
+    @Override
+    public int saveAndFindId(Pedido objeto) {
+        return 0;
+    }
+
+    @Override
+    public int update(Pedido objeto) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public Optional<Pedido> findById(Integer integer) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Pedido> findAll() {
+        return List.of();
     }
 }

@@ -2,6 +2,7 @@ package presentacion.controller;
 
 import aplicacion.serviceimpl.AnimalServiceImpl;
 import dominio.modelos.Animal;
+import dominio.servicio.JlaService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class AnimalController {
     // Dependencia del Dominio (Service)
-    private final AnimalService animalService;
+    private final JlaService<Animal,Integer> animalService;
     public AnimalController() {
         this.animalService = new AnimalServiceImpl();
     }
@@ -57,21 +58,9 @@ public class AnimalController {
     }
 
     private void cargarDatosTabla() {
-        if (animalService != null) {
-            List<Animal> animales = animalService.obtenerTodosLosAnimales();
-            for(Animal animal : animales) {
-                if(animal != null) {
-                    System.out.println(animal.getEspecie());
-                }else{
-                    System.out.println( "no ay nada esta nulo");
-                }
-            }
-            listaAnimales = FXCollections.observableArrayList(animales);
-            tblAnimales.setItems(listaAnimales);
-        }else{
-            System.out.println("No se encontro el animalService");
-
-        }
+        List<Animal> animales = animalService.findAll();
+        listaAnimales = FXCollections.observableArrayList(animales);
+        tblAnimales.setItems(listaAnimales);
     }
 
     @FXML
@@ -97,7 +86,7 @@ public class AnimalController {
         }
 
         // El flujo viaja del controlador -> Service -> Repository
-        animalService.guardarAnimal(animal);
+        animalService.save(animal);
         
         // Refrescar UI y limpiar campos
         cargarDatosTabla();

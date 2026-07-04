@@ -2,6 +2,7 @@ package aplicacion.repositoryimpl;
 
 import dominio.modelos.Pedido;
 import dominio.modelos.Producto;
+import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
 import java.sql.Connection;
@@ -10,8 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class ProductoRepositoryImpl implements ProductoRepository {
+public class ProductoRepositoryImpl implements JpaRepository< Producto, Integer  > {
     Connection conexion;
     public ProductoRepositoryImpl() {
         this.conexion = ConexionPostgresSQL.getConexion();
@@ -76,5 +78,30 @@ public class ProductoRepositoryImpl implements ProductoRepository {
     @Override
     public int updateProducto(Pedido pedido) {
         return 0;
+    }
+
+    @Override
+    public int saveAndFindId(Producto objeto) {
+        return 0;
+    }
+
+    @Override
+    public int update(Producto objeto) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public Optional<Producto> findById(Integer integer) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Producto> findAll() {
+        return List.of();
     }
 }

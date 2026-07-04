@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Optional;
 
 import dominio.modelos.LoteAnimal;
+import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
-public class LoteAnimalImpl implements LoteAnimalRepository {
+public class LoteAnimalImpl implements JpaRepository< LoteAnimal , Integer  > {
     Connection conexion;
     private final AnimalRepositoryImpl animalRepository;
 
@@ -99,5 +102,30 @@ public class LoteAnimalImpl implements LoteAnimalRepository {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public int saveAndFindId(LoteAnimal objeto) {
+        return 0;
+    }
+
+    @Override
+    public int update(LoteAnimal objeto) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public Optional<LoteAnimal> findById(Integer integer) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<LoteAnimal> findAll() {
+        return List.of();
     }
 }

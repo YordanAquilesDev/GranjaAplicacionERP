@@ -1,19 +1,22 @@
 package aplicacion.repositoryimpl;
 
 import dominio.modelos.DetallePedido;
+import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 
-public class DetallePedidoRepositoryImpl implements DetallePedidoRepository {
+public class DetallePedidoRepositoryImpl implements JpaRepository<DetallePedido, Integer> {
     Connection conexion;
     public DetallePedidoRepositoryImpl() {
         this.conexion = ConexionPostgresSQL.getConexion();
     }
-    @Override
+
     public DetallePedido guardar(DetallePedido detallePedido) {
         try{
             String sql= """
@@ -36,5 +39,30 @@ public class DetallePedidoRepositoryImpl implements DetallePedidoRepository {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @Override
+    public int saveAndFindId(DetallePedido objeto) {
+        return 0;
+    }
+
+    @Override
+    public int update(DetallePedido objeto) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public Optional<DetallePedido> findById(Integer integer) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<DetallePedido> findAll() {
+        return List.of();
     }
 }

@@ -16,11 +16,8 @@ import presentacion.app.ConexionPostgresSQL;
 public class DetalleCompraRepositoryImpl implements JpaRepository<DetalleCompra,Integer> {
     Connection conexion;
 
-    private final ProductoRepository productoRepository;
-
     public DetalleCompraRepositoryImpl() {
         this.conexion = ConexionPostgresSQL.getConexion();
-        this.productoRepository = new ProductoRepositoryImpl();
     }
 
 
@@ -74,7 +71,7 @@ public class DetalleCompraRepositoryImpl implements JpaRepository<DetalleCompra,
             preparar.setLong(1, id);
             ResultSet rs = preparar.executeQuery();
             if (rs.next()) {
-                productos.add(productoRepository.buscarPorId(rs.getInt("id_producto")));
+                productos.add(null);
                 cantidades.add(rs.getInt("cantidad"));
                 subtotals.add(rs.getDouble("subtotal"));
                 if (rs.next()) {
@@ -108,7 +105,7 @@ public class DetalleCompraRepositoryImpl implements JpaRepository<DetalleCompra,
             ResultSet rs = preparar.executeQuery();
             int temp = 1;
             while (rs.next()) {
-                productos.add(productoRepository.buscarPorId(rs.getInt("id_producto")));
+                productos.add(null);
                 cantidades.add(rs.getInt("cantidad"));
                 subtotals.add(rs.getDouble("subtotal"));
                 if (temp < rs.getInt("id_detalle")) {
