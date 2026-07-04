@@ -7,22 +7,13 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
-public class MovimientoRepositoryImpl implements JpaRepository< MovimientoAlmacen,Integer   > {
+public class MovimientoRepository implements JpaRepository< MovimientoAlmacen,Integer > {
 
-    @Override
+
     public int save(MovimientoAlmacen beans) {
         return 0;
     }
 
-    @Override
-    public List<MovimientoAlmacen> finAll() {
-        return null;
-    }
-
-    @Override
-    public List<MovimientoAlmacen> finAllDate(Date fecha1, Date fecha2) {
-        return null;
-    }
 
     @Override
     public int saveAndFindId(MovimientoAlmacen objeto) {

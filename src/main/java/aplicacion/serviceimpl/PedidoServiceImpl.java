@@ -1,38 +1,40 @@
 package aplicacion.serviceimpl;
 
-import aplicacion.repositoryimpl.PedidoRepositoryImpl;
 import dominio.modelos.Pedido;
+import dominio.servicio.JlaService;
 
 import java.util.List;
+import java.util.Optional;
 
-public class PedidoServiceImpl implements PedidoService {
-    private PedidoRepository pedidoRepository;
+public class PedidoServiceImpl implements JlaService<Pedido,Integer> {
+
     public PedidoServiceImpl() {
-        this.pedidoRepository = new PedidoRepositoryImpl();
-    }
-    @Override
-    public Pedido guardarUnPedido(Pedido pedido) {
-        return null;
+
     }
 
+
     @Override
-    public Pedido obtenerUnPedidoPorId(Long id) {
-        return null;
+    public int save(Pedido pedido) {
+        return 0;
     }
 
     @Override
-    public List<Pedido> obtenerTodosLosPedidos() {
-        return pedidoRepository.listarTodosLosPedidos();
+    public int update(Pedido pedido) {
+        return 0;
     }
 
     @Override
-    public List<Pedido> obtenerPedidosEntregados() {
-        return pedidoRepository.listarPedidosEntregados();
+    public int delete(Integer integer) {
+        return 0;
     }
 
     @Override
-    public List<Pedido> obtenerPedidosNoEntregados() {
+    public List<Pedido> findAll() {
+        return List.of();
+    }
 
-        return pedidoRepository.listarPedidosNoEntregados();
+    @Override
+    public Optional<Pedido> findById(Integer integer) {
+        return Optional.empty();
     }
 }

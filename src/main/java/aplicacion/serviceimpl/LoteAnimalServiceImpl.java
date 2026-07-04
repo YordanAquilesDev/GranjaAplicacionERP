@@ -2,22 +2,35 @@ package aplicacion.serviceimpl;
 
 import dominio.modelos.Animal;
 import dominio.modelos.LoteAnimal;
+import dominio.servicio.JlaService;
 
 import java.util.List;
+import java.util.Optional;
 
-public class LoteAnimalServiceImpl implements LoteAnimalService {
+public class LoteAnimalServiceImpl implements JlaService<LoteAnimal,Integer> {
+
     @Override
-    public LoteAnimal guardarUnLote(LoteAnimal lote) {
-        return null;
+    public int save(LoteAnimal loteAnimal) {
+        return 0;
     }
 
     @Override
-    public LoteAnimal obtenerUnLotePorId(Long id) {
-        return null;
+    public int update(LoteAnimal loteAnimal) {
+        return 0;
     }
 
     @Override
-    public List<LoteAnimal> obtenerTodosLosLotesPorAnimal(Animal animal) {
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public List<LoteAnimal> findAll() {
         return List.of();
+    }
+
+    @Override
+    public Optional<LoteAnimal> findById(Integer integer) {
+        return Optional.empty();
     }
 }

@@ -1,38 +1,40 @@
 package aplicacion.serviceimpl;
 
-import aplicacion.repositoryimpl.DetallePedidoRepositoryImpl;
+
 import dominio.modelos.DetallePedido;
+import dominio.servicio.JlaService;
 
 import java.util.List;
+import java.util.Optional;
 
-public class DetallePedidoServiceImpl implements DetallePedidoService {
+public class DetallePedidoServiceImpl implements JlaService<DetallePedido,Integer> {
 
-    private final DetallePedidoRepository detallePedidoRepository;
+
     public DetallePedidoServiceImpl() {
-        this.detallePedidoRepository = new DetallePedidoRepositoryImpl();
+
     }
     @Override
-    public DetallePedido guardarUnDetallePedido(DetallePedido detallePedido) {
-        if(detallePedido== null){
-            return  null;
-        }
-
-        if(detallePedido.getIdDetalle()==-1||
-                detallePedido.getCantidad()==0||
-                detallePedido.getProducto().getIdProducto()==-1||
-                detallePedido.getPedido().getIdPedido()==-1){
-            return  null;
-        }
-        return detallePedidoRepository.guardar(detallePedido);
+    public int save(DetallePedido detallePedido) {
+        return 0;
     }
 
     @Override
-    public DetallePedido obtenerUnDetallePedidoPorId(Long id) {
-        return null;
+    public int update(DetallePedido detallePedido) {
+        return 0;
     }
 
     @Override
-    public List<DetallePedido> obtenerTodosLosDetallePedidos() {
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public List<DetallePedido> findAll() {
         return List.of();
+    }
+
+    @Override
+    public Optional<DetallePedido> findById(Integer integer) {
+        return Optional.empty();
     }
 }

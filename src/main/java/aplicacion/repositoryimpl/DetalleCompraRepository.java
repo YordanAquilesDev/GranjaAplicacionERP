@@ -13,10 +13,10 @@ import dominio.modelos.Producto;
 import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
-public class DetalleCompraRepositoryImpl implements JpaRepository<DetalleCompra,Integer> {
+public class DetalleCompraRepository implements JpaRepository<DetalleCompra,Integer> {
     Connection conexion;
 
-    public DetalleCompraRepositoryImpl() {
+    public DetalleCompraRepository() {
         this.conexion = ConexionPostgresSQL.getConexion();
     }
 

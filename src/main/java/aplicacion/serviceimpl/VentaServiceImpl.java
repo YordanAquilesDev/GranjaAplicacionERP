@@ -2,28 +2,39 @@ package aplicacion.serviceimpl;
 
 import aplicacion.repositoryimpl.VentaRepositoryImpl;
 import dominio.modelos.Venta;
+import dominio.servicio.JlaService;
 
 import java.util.List;
+import java.util.Optional;
 
-public class VentaServiceImpl implements VentaService {
-    private final VentaRepository ventaRepository;
+public class VentaServiceImpl implements JlaService<Venta, Integer> {
+
     public VentaServiceImpl() {
-        this.ventaRepository =  new VentaRepositoryImpl();
 
-    }
-    @Override
-    public Venta guardarUnaVenta(Venta venta) {
-        return null;
     }
 
     @Override
-    public Venta obtenerUnaVentaPorId(int id) {
-        return null;
+    public int save(Venta venta) {
+        return 0;
     }
 
     @Override
-    public List<Venta> obtenerTodasLasVentas() {
-        System.out.println("estamos en Ventaslistas service");
-        return ventaRepository.listarVentas();
+    public int update(Venta venta) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public List<Venta> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public Optional<Venta> findById(Integer integer) {
+        return Optional.empty();
     }
 }

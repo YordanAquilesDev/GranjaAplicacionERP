@@ -11,55 +11,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class ProveedorRepositoryImpl implements JpaRepository<Proveedor,Integer   > {
+public class ProveedorRepository implements JpaRepository<Proveedor,Integer   > {
    Connection c;
-    public ProveedorRepositoryImpl() {
+    public ProveedorRepository() {
         this.c= ConexionPostgresSQL.getConexion();
-    }
-
-    @Override
-    public Proveedor guardar(Proveedor proveedor) {
-        return null;
-    }
-
-    @Override
-    public Proveedor buscarPorId(long id) {
-        try {
-            String sql = "select * from proveedor where id_proveedor=?";
-            PreparedStatement preparar= c.prepareStatement(sql);
-            preparar.setLong(1,id);
-            ResultSet resultado=preparar.executeQuery();
-            resultado.next();
-            return new Proveedor(
-                    resultado.getInt("id_proveedor"),
-                    resultado.getString("nombre"),
-                    resultado.getString("apellido"),
-                    resultado.getString("dni"),
-                    resultado.getString("telefono")
-            );
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public Proveedor Actualizar(Proveedor proveedor) {
-        return null;
-    }
-
-    @Override
-    public Proveedor Eliminar(long id) {
-        return null;
-    }
-
-    @Override
-    public List<Proveedor> listarProveedores() {
-        return List.of();
-    }
-
-    @Override
-    public int updateProveedor(Proveedor proveedor) {
-        return 0;
     }
 
     @Override
@@ -73,13 +28,28 @@ public class ProveedorRepositoryImpl implements JpaRepository<Proveedor,Integer 
     }
 
     @Override
-    public int delete(Integer integer) {
+    public int delete(Integer id) {
         return 0;
     }
 
     @Override
-    public Optional<Proveedor> findById(Integer integer) {
-        return Optional.empty();
+    public Optional<Proveedor> findById(Integer id) {
+        try {
+            String sql = "select * from proveedor where id_proveedor=?";
+            PreparedStatement preparar= c.prepareStatement(sql);
+            preparar.setInt(1,id);
+            ResultSet resultado=preparar.executeQuery();
+            resultado.next();
+            return Optional.of(new Proveedor(
+                    resultado.getInt("id_proveedor"),
+                    resultado.getString("nombre"),
+                    resultado.getString("apellido"),
+                    resultado.getString("dni"),
+                    resultado.getString("telefono")
+            ));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

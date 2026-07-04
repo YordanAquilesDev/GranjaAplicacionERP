@@ -13,13 +13,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductoRepositoryImpl implements JpaRepository< Producto, Integer  > {
+public class ProductoRepository implements JpaRepository< Producto, Integer  > {
     Connection conexion;
-    public ProductoRepositoryImpl() {
+    public ProductoRepository() {
         this.conexion = ConexionPostgresSQL.getConexion();
     }
+
+
     @Override
-    public Producto buscarPorId(long id) {
+    public int saveAndFindId(Producto objeto) {
+        return 0;
+    }
+
+    @Override
+    public int update(Producto objeto) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public Optional<Producto> findById(Integer id) {
         try{
             String sql = """
                     SELECT * FROM producto WHERE id_producto = ?;
@@ -29,14 +46,14 @@ public class ProductoRepositoryImpl implements JpaRepository< Producto, Integer 
             preparar.setLong(1, id);
             ResultSet resultado = preparar.executeQuery();
             resultado.next();
-            return new Producto(
+            return Optional.of(new Producto(
                     resultado.getInt("id_producto"),
                     resultado.getInt("stock_actual"),
                     resultado.getString("unidad_medida"),
                     resultado.getString("nombre"),
                     resultado.getString("tipo_producto"),
                     resultado.getDouble("precio_unidad")
-            );
+            ));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -44,7 +61,7 @@ public class ProductoRepositoryImpl implements JpaRepository< Producto, Integer 
     }
 
     @Override
-    public  List<Producto> listarProductos() {
+    public List<Producto> findAll() {
         List<Producto> productos = new ArrayList<>();
         try{
             String sql= """
@@ -67,41 +84,6 @@ public class ProductoRepositoryImpl implements JpaRepository< Producto, Integer 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return List.of();
-    }
-
-    @Override
-    public List<Producto> listaProductosPorAcavar() {
-        return List.of();
-    }
-
-    @Override
-    public int updateProducto(Pedido pedido) {
-        return 0;
-    }
-
-    @Override
-    public int saveAndFindId(Producto objeto) {
-        return 0;
-    }
-
-    @Override
-    public int update(Producto objeto) {
-        return 0;
-    }
-
-    @Override
-    public int delete(Integer integer) {
-        return 0;
-    }
-
-    @Override
-    public Optional<Producto> findById(Integer integer) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Producto> findAll() {
         return List.of();
     }
 }

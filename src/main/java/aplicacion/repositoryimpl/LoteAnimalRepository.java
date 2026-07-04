@@ -12,16 +12,14 @@ import dominio.modelos.LoteAnimal;
 import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
-public class LoteAnimalImpl implements JpaRepository< LoteAnimal , Integer  > {
+public class LoteAnimalRepository implements JpaRepository< LoteAnimal , Integer  > {
     Connection conexion;
-    private final AnimalRepositoryImpl animalRepository;
 
-    public LoteAnimalImpl() {
-        this.animalRepository = new AnimalRepositoryImpl();
+    public LoteAnimalRepository () {
         this.conexion = ConexionPostgresSQL.getConexion();
     }
 
-    @Override
+
     public LoteAnimal guardarLoteAnimal(LoteAnimal loteAnimal) {
         try {
             String sql = """
@@ -45,47 +43,7 @@ public class LoteAnimalImpl implements JpaRepository< LoteAnimal , Integer  > {
         }
     }
 
-    @Override
-    public LoteAnimal traerPorId(int id) {
-        try {
-            String sql ="""
-                    SELECT * FROM lote_animal
-                    WHERE id_lote=?
-                    """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
-            preparar.setInt(1, id);
-            ResultSet resultado = preparar.executeQuery();
-            resultado.next();
-            return new LoteAnimal(
-                    resultado.getInt("id_lote"),
-                    animalRepository.finById(resultado.getInt("id_animal")),
-                    resultado.getDate("fecha_inicio"),
-                    resultado.getInt("cantidad_inicio"),
-                    resultado.getInt("cantidad_actual"),
-                    resultado.getDouble("peso_promedio"),
-                    resultado.getString("estado_lote"));
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @Override
-    public int updateLoteCantidadAnimalActual(int id, int cantidadActual) {
-        PreparedStatement preparar;
-        try{
-            String sql ="""
-                    UPDATE lote_animal
-                    SET cantidad_actual=?;
-            """;
-            preparar=conexion.prepareStatement(sql);
-            preparar.setInt(1, cantidadActual);
-            return  preparar.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public int updateLoteCantidadAnimalActual(int cantidadActual){
         try{
@@ -120,8 +78,29 @@ public class LoteAnimalImpl implements JpaRepository< LoteAnimal , Integer  > {
     }
 
     @Override
-    public Optional<LoteAnimal> findById(Integer integer) {
-        return Optional.empty();
+    public Optional<LoteAnimal> findById(Integer id) {
+        try {
+            String sql ="""
+                    SELECT * FROM lote_animal
+                    WHERE id_lote=?
+                    """;
+            PreparedStatement preparar = conexion.prepareStatement(sql);
+            preparar.setInt(1, id);
+            ResultSet resultado = preparar.executeQuery();
+            resultado.next();
+            return Optional.of(new LoteAnimal(
+                    resultado.getInt("id_lote"),
+                    null,
+                    resultado.getDate("fecha_inicio"),
+                    resultado.getInt("cantidad_inicio"),
+                    resultado.getInt("cantidad_actual"),
+                    resultado.getDouble("peso_promedio"),
+                    resultado.getString("estado_lote")));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override

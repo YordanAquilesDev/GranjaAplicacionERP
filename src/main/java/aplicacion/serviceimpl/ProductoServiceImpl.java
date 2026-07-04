@@ -1,32 +1,35 @@
 package aplicacion.serviceimpl;
 
 import dominio.modelos.Producto;
+import dominio.servicio.JlaService;
 
 import java.util.List;
+import java.util.Optional;
 
-public class ProductoServiceImpl implements ProductoService {
+public class ProductoServiceImpl implements JlaService<Producto,Integer> {
+
     @Override
-    public Producto guardarUnProducto(Producto producto) {
-        return null;
+    public int save(Producto producto) {
+        return 0;
     }
 
     @Override
-    public Producto obtenerUnProductoPorId(int id) {
-        return null;
+    public int update(Producto producto) {
+        return 0;
     }
 
     @Override
-    public List<Producto> obtenerTodosLosProductos() {
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public List<Producto> findAll() {
         return List.of();
     }
 
     @Override
-    public List<Producto> obtenerProductosPorCategoria(String categoria) {
-        return List.of();
-    }
-
-    @Override
-    public List<Producto> obtenerProductosPorAcabar() {
-        return List.of();
+    public Optional<Producto> findById(Integer integer) {
+        return Optional.empty();
     }
 }

@@ -17,10 +17,10 @@ import dominio.repository.JpaRepository;
 import dominio.servicio.JlaService;
 import presentacion.app.ConexionPostgresSQL;
 
-public class ConsumoLoteRepositoryImpl implements JpaRepository<ConsumoLote, Integer> {
+public class ConsumoLoteRepository implements JpaRepository<ConsumoLote, Integer> {
     Connection conexion;
 
-    public ConsumoLoteRepositoryImpl() {
+    public ConsumoLoteRepository() {
 
         this.conexion = ConexionPostgresSQL.getConexion();
 

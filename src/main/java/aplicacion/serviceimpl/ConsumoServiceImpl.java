@@ -1,43 +1,43 @@
-
+package aplicacion.serviceimpl;
 
 import java.util.List;
+import java.util.Optional;
 
-import aplicacion.repositoryimpl.ConsumoLoteRepositoryImpl;
+import aplicacion.repositoryimpl.ConsumoLoteRepository;
 import dominio.modelos.Animal;
 import dominio.modelos.ConsumoLote;
 import dominio.modelos.LoteAnimal;
+import dominio.servicio.JlaService;
 
-public class ConsumoServiceImpl implements ConsumoLoteService {
+public class ConsumoServiceImpl implements JlaService<ConsumoLote,Integer> {
 
-    private final ConsumoLoteRepository consumoLoteRepository;
 
     public ConsumoServiceImpl() {
-        this.consumoLoteRepository = new ConsumoLoteRepositoryImpl();
     }
 
-    // ok
-    public ConsumoLote guardarConsumoLote(ConsumoLote consumoLote) {
-        return consumoLoteRepository.guardarConsumoLote(consumoLote);
+
+    @Override
+    public int save(ConsumoLote consumoLote) {
+        return 0;
     }
 
-    // ok
-    public List<ConsumoLote> obtenerConsumosPorLote(LoteAnimal lote) {
-        return consumoLoteRepository.listarConsumoLotes();
+    @Override
+    public int update(ConsumoLote consumoLote) {
+        return 0;
     }
 
-    // ok
-    public ConsumoLote obtenerConsumoPorId(Long id) {
-        return consumoLoteRepository.obtenerConsumoPorId(id);
+    @Override
+    public int delete(Integer integer) {
+        return 0;
     }
 
-    // ok
-    public List<ConsumoLote> obtenerConsumoLotePorAnimal(Animal animal) {
-        if (animal == null) {
-            throw new IllegalArgumentException("El animal no puede ser nulo");
-        }
-        if (animal.getIdAnimal() <= 0) {
-            throw new IllegalArgumentException("El id del animal debe ser mayor a cero");
-        }
-        return consumoLoteRepository.obtenerConsumoLotePorAnimal(animal);
+    @Override
+    public List<ConsumoLote> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public Optional<ConsumoLote> findById(Integer integer) {
+        return Optional.empty();
     }
 }

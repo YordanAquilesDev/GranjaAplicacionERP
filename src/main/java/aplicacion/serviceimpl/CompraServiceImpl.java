@@ -2,45 +2,42 @@ package aplicacion.serviceimpl;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
-import aplicacion.repositoryimpl.CompraRepositoryImpl;
+import aplicacion.repositoryimpl.CompraRepository;
 import dominio.modelos.Compra;
 import dominio.modelos.DetalleCompra;
+import dominio.servicio.JlaService;
 
-public class CompraServiceImpl implements CompraService {
+public class CompraServiceImpl implements JlaService<Compra,Integer> {
     private final CompraRepository compraRepository;
 
     public CompraServiceImpl() {
         this.compraRepository = new CompraRepository();
     }
 
-    public Compra guardarCompra(DetalleCompra detalleCompra) {
-        if (detalleCompra == null) {
-            return null;
-        }
-        if (detalleCompra.getCompra() == null ||
-                detalleCompra.getProductos() == null ||
-                detalleCompra.getCantidad() == null ||
-                detalleCompra.getSubtotal().isEmpty()) {
-            return null;
-        } else {
-            return compraRepository.guardarCompra(detalleCompra);
-        }
-
+    @Override
+    public int save(Compra compra) {
+        return 0;
     }
 
-    public Compra obtenerCompraPorId(Long id) {
-        Integer idNativo = Integer.parseInt(id.toString());
-        return compraRepository.traerCompraPorId(idNativo);
+    @Override
+    public int update(Compra compra) {
+        return 0;
     }
 
-    public List<Compra> obtenerTodasLasCompras() {
-        System.out.println("estamos en Compraslistas service");
-        return compraRepository.listarCompras();
+    @Override
+    public int delete(Integer integer) {
+        return 0;
     }
 
-    public List<Compra> obtenerComprasPorFecha(Date fecha, Date fecha2) {
-        return compraRepository.listarComprasPorFecha(fecha, fecha2);
+    @Override
+    public List<Compra> findAll() {
+        return List.of();
     }
 
+    @Override
+    public Optional<Compra> findById(Integer integer) {
+        return Optional.empty();
+    }
 }

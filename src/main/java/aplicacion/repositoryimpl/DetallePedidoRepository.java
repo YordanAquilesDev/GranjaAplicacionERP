@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class DetallePedidoRepositoryImpl implements JpaRepository<DetallePedido, Integer> {
+public class DetallePedidoRepository implements JpaRepository<DetallePedido, Integer> {
     Connection conexion;
-    public DetallePedidoRepositoryImpl() {
+    public DetallePedidoRepository() {
         this.conexion = ConexionPostgresSQL.getConexion();
     }
 

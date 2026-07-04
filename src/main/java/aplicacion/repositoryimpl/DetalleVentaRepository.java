@@ -11,14 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class DetalleVentaRepositoryImpl implements JpaRepository<DetalleVenta,Integer   > {
-    private final VentaService ventaService;
-    private final ProductoService productoService;
-    public DetalleVentaRepositoryImpl() {
-        this.ventaService =new VentaServiceImpl();
-        this.productoService= new ProductoServiceImpl();
+public class DetalleVentaRepository implements JpaRepository<DetalleVenta,Integer   > {
+
+    public DetalleVentaRepository() {
+
     }
-    @Override
+
     public int save(DetalleVenta beans) {
         PreparedStatement sentencia = null;
         Connection conexion = null;
@@ -49,7 +47,7 @@ public class DetalleVentaRepositoryImpl implements JpaRepository<DetalleVenta,In
     }
 
     @Override
-    public List<DetalleVenta> finAll() {
+    public List<DetalleVenta> findAll() {
         List<DetalleVenta> detalleVentas = new ArrayList<>();
         PreparedStatement sentencia = null;
         ResultSet resultado = null;
@@ -63,8 +61,8 @@ public class DetalleVentaRepositoryImpl implements JpaRepository<DetalleVenta,In
             resultado = sentencia.executeQuery();
             while(resultado.next()){
                detalleVentas.add(new DetalleVenta(resultado.getInt(1),
-                       ventaService.obtenerUnaVentaPorId(resultado.getInt(2)),
-                       productoService.obtenerUnProductoPorId(resultado.getInt(3)),
+                       null,
+                       null,
                        resultado.getInt(4),
                        resultado.getDouble(5)
                ));
@@ -86,39 +84,6 @@ public class DetalleVentaRepositoryImpl implements JpaRepository<DetalleVenta,In
 
     }
 
-    @Override
-    public List<DetalleVenta> finAllByDate(Date fecha1, Date fecha2) {
-        PreparedStatement sentencia = null;
-        Connection conexion = null;
-        ResultSet resultado = null;
-        List<DetalleVenta> detalleVentas = new ArrayList<>();
-
-        try{
-            String sql = """
-                    SELECT * FROM detalle_venta dv
-                    JOIN Venta v ON dv.id_venta= v.id_venta
-                    WHERE v.fecha BETWEEN ? AND ?;
-                    
-                    """;
-            conexion= ConexionPostgresSQL.getConexion();
-            sentencia=conexion.prepareStatement(sql);
-            sentencia.setDate(1, fecha1);
-            sentencia.setDate(2, fecha2);
-            resultado = sentencia.executeQuery();
-            while(resultado.next()){
-                detalleVentas.add(new DetalleVenta(resultado.getInt(1),
-                        ventaService.obtenerUnaVentaPorId(resultado.getInt(2)),
-                        productoService.obtenerUnProductoPorId(resultado.getInt(3)),
-                        resultado.getInt(4),
-                        resultado.getDouble(5)
-                ));
-            }
-            return detalleVentas;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public int saveAndFindId(DetalleVenta objeto) {
@@ -140,8 +105,5 @@ public class DetalleVentaRepositoryImpl implements JpaRepository<DetalleVenta,In
         return Optional.empty();
     }
 
-    @Override
-    public List<DetalleVenta> findAll() {
-        return List.of();
-    }
+
 }
