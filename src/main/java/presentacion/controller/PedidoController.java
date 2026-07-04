@@ -2,7 +2,6 @@ package presentacion.controller;
 
 import aplicacion.serviceimpl.PedidoServiceImpl;
 import dominio.modelos.Pedido;
-import dominio.servicio.PedidoService;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;

@@ -7,14 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import dominio.modelos.LoteAnimal;
-import dominio.repository.AnimalRepository;
-import dominio.repository.LoteAnimalRepository;
 import presentacion.app.ConexionPostgresSQL;
-import aplicacion.repositoryimpl.AnimalRepositoryImpl;
 
 public class LoteAnimalImpl implements LoteAnimalRepository {
     Connection conexion;
-    private final AnimalRepository animalRepository;
+    private final AnimalRepositoryImpl animalRepository;
 
     public LoteAnimalImpl() {
         this.animalRepository = new AnimalRepositoryImpl();

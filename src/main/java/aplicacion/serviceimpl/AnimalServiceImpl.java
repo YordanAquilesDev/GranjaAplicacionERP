@@ -1,59 +1,52 @@
 package aplicacion.serviceimpl;
 
 import java.util.List;
+import java.util.Optional;
 
-import aplicacion.repositoryimpl.AnimalRepositoryImpl;
+import aplicacion.repositoryimpl.AnimalRepository;
 import dominio.modelos.Animal;
-import dominio.servicio.AnimalService;
-import dominio.repository.AnimalRepository;
+import dominio.repository.JpaRepository;
+import dominio.servicio.JlaService;
 
-public class AnimalServiceImpl implements AnimalService {
-    private final AnimalRepository animalRepository;
-
+public class AnimalServiceImpl implements JlaService<Animal, Integer> {
+    private final JpaRepository <Animal,Integer> animalRepository;
     public AnimalServiceImpl() {
-        this.animalRepository = new AnimalRepositoryImpl();
-    }
+        this.animalRepository  = new AnimalRepository();
 
+    }
     @Override
-    public int guardarAnimal(Animal animal) {
+    public int save(Animal animal) {
         if (animal == null) {
             return -1;
         }
         if (animal.getRaza() == null || animal.getEspecie() == null) {
             return -1;
         } else {
-            return animalRepository.save(animal);
-
+            return  animalRepository.saveAndFindId(animal);
         }
     }
 
     @Override
-    public int actualizarAnimal(Animal animal) {
+    public int update(Animal animal) {
         if (animal == null) {return -1;}
         if (animal.getRaza() == null || animal.getEspecie() == null) {return -1;}
         return animalRepository.update(animal);
     }
 
     @Override
-    public int eliminarAnimal(int id) {
+    public int delete(Integer id) {
         if (id < 0) {return -1;}
         return animalRepository.delete(id);
     }
 
     @Override
-    public Animal obtenerAnimalPorId(int id) {
+    public List<Animal> findAll() {
+        return animalRepository.findAll();
+    }
+
+    @Override
+    public Optional<Animal> findById(Integer id) {
         if (id < 0) {return null;}
-        return animalRepository.finById(id);
+        return animalRepository.findById(id);
     }
-
-    @Override
-    public List<Animal> obtenerTodosLosAnimales() {
-        return animalRepository.finAll();
-    }
-
-    @Override
-    public List<Animal> traerPorConsumo(){
-        return animalRepository.traerAnimalesPorConsumo();
-    }
-
 }

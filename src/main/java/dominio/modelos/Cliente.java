@@ -1,5 +1,7 @@
 package dominio.modelos;
 
+import java.util.List;
+
 public class Cliente {
     private int idCliente;
     private String nombre;
@@ -7,6 +9,7 @@ public class Cliente {
     private String dni;
     private String celular;
     private String direccion;
+    List<Compra> compras;
 
     public String getDireccion() {
         return direccion;

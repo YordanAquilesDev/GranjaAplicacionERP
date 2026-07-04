@@ -1,10 +1,13 @@
 package dominio.modelos;
 
+import java.util.List;
+
 public class Animal {
 
     private int idAnimal;
     private String especie;
     private String raza;
+    List<LoteAnimal> lotes;
 
     public void setEspecie(String especie) {
         this.especie = especie;

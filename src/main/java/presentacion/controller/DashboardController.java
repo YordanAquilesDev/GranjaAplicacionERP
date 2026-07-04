@@ -4,8 +4,6 @@ import aplicacion.serviceimpl.CompraServiceImpl;
 import aplicacion.serviceimpl.VentaServiceImpl;
 import dominio.modelos.Compra;
 import dominio.modelos.Venta;
-import dominio.servicio.CompraService;
-import dominio.servicio.VentaService;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;

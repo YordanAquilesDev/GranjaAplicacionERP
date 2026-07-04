@@ -1,9 +1,8 @@
 package aplicacion.serviceimpl;
 
-import dominio.servicio.LoteAnimalService;
-import dominio.servicio.VentaService;
+import dominio.servicio.DashboarService;
 
-public class DashboarServiceImpl implements DashboarService{
+public class DashboarServiceImpl implements DashboarService {
     private final VentaService ventaService;
     private final LoteAnimalService loteAnimalService;
     private final CompraService compraService;

@@ -1,8 +1,6 @@
 package aplicacion.repositoryimpl;
 
 import dominio.modelos.Pedido;
-import dominio.repository.ClienteRepository;
-import dominio.repository.PedidoRepository;
 import presentacion.app.ConexionPostgresSQL;
 
 import java.sql.Connection;

@@ -2,8 +2,6 @@ package aplicacion.serviceimpl;
 
 import aplicacion.repositoryimpl.VentaRepositoryImpl;
 import dominio.modelos.Venta;
-import dominio.repository.VentaRepository;
-import dominio.servicio.VentaService;
 
 import java.util.List;
 

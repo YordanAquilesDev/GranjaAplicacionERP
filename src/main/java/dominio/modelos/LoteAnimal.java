@@ -1,6 +1,7 @@
 package dominio.modelos;
 
 import java.sql.Date;
+import java.util.List;
 
 public class LoteAnimal {
     private int idLote;
@@ -10,6 +11,7 @@ public class LoteAnimal {
     private int cantidadActual;
     private double pesoPromedio;
     private String estadoLote;
+    List<ConsumoLote> consumos;
 
     public LoteAnimal(int idLote, Animal animal,
             Date fechaInicio,

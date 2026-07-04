@@ -6,8 +6,6 @@ import aplicacion.repositoryimpl.ConsumoLoteRepositoryImpl;
 import dominio.modelos.Animal;
 import dominio.modelos.ConsumoLote;
 import dominio.modelos.LoteAnimal;
-import dominio.servicio.ConsumoLoteService;
-import dominio.repository.ConsumoLoteRepository;
 
 public class ConsumoServiceImpl implements ConsumoLoteService {
 

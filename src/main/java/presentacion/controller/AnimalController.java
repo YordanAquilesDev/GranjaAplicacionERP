@@ -2,7 +2,6 @@ package presentacion.controller;
 
 import aplicacion.serviceimpl.AnimalServiceImpl;
 import dominio.modelos.Animal;
-import dominio.servicio.AnimalService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -1,7 +1,6 @@
 package aplicacion.serviceimpl;
 
 import dominio.modelos.Producto;
-import dominio.servicio.ProductoService;
 
 import java.util.List;
 

@@ -6,14 +6,14 @@ import java.util.List;
 public class ConsumoLote {
     private int idConsumo;
     private LoteAnimal lote;
-    private List<Producto> producto;
+    private Producto producto;
     private int cantidad;
     private Date fecha;
 
     public ConsumoLote(int idConsumo,
             LoteAnimal lote,
             int cantidad,
-            List<Producto> producto,
+            Producto producto,
             Date fecha) {
         this.idConsumo = idConsumo;
         this.lote = lote;
@@ -41,11 +41,11 @@ public class ConsumoLote {
         this.lote = lote;
     }
 
-    public List<Producto> getProducto() {
+    public Producto getProducto() {
         return producto;
     }
 
-    public void setProducto(List<Producto> producto) {
+    public void setProducto(Producto producto) {
         this.producto = producto;
     }
 

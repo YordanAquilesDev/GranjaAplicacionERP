@@ -1,7 +1,6 @@
 package aplicacion.repositoryimpl;
 
 import dominio.modelos.MovimientoAlmacen;
-import dominio.repository.MovimientoAlmacenRepository;
 
 import java.sql.Date;
 import java.util.List;

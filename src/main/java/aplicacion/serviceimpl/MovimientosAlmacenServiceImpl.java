@@ -1,7 +1,6 @@
 package aplicacion.serviceimpl;
 
 import dominio.modelos.MovimientoAlmacen;
-import dominio.servicio.MovimientoGranjaService;
 
 import java.sql.Date;
 import java.util.List;

@@ -80,4 +80,5 @@
 
 /* Estado: Pasar el mouse sobre Salir */
 .exit-button:hover {
-    -fx-background-color
+    -fx-background-color: #f87171
+}

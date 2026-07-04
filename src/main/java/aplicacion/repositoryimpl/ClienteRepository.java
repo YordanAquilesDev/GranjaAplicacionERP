@@ -6,22 +6,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import dominio.modelos.Cliente;
-import dominio.repository.ClienteRepository;
+import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
-public class ClienteRepositoryImpl implements ClienteRepository {
+public class ClienteRepository implements JpaRepository<Cliente, Integer> {
     Connection conexion;
 
-    public ClienteRepositoryImpl() {
+    public ClienteRepository() {
 
         this.conexion = ConexionPostgresSQL.getConexion();
 
     }
-
     @Override
-    public int guardar(Cliente cliente) {
+    public int saveAndFindId(Cliente cliente) {
         int filaAfecta = -1;
         try {
             String sql = """
@@ -57,36 +57,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     }
 
     @Override
-    public Cliente traerPorId(Integer id) {
-        try {
-            String sql = """
-                    SELECT * FROM cliente WHERE id_cliente = ?;
-                    """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
-            preparar.setInt(1, id);
-            ResultSet resultado = preparar.executeQuery();
-            resultado.next();
-            return new Cliente(
-                    resultado.getInt("id_cliente"),
-                    resultado.getString("nombre"),
-                    resultado.getString("apellido"),
-                    resultado.getString("celular"),
-                    resultado.getString("dni"),
-                    resultado.getString("direccion"));
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @Override
-    public void borrarCliente(Cliente cliente) {
-
-    }
-
-    @Override
-    public int updateCliente(Cliente cliente) {
+    public int update(Cliente objeto) {
         PreparedStatement preparar;
         int filaAfecta = -1;
         try {
@@ -102,10 +73,41 @@ public class ClienteRepositoryImpl implements ClienteRepository {
             throw new RuntimeException(e);
 
         }
+
     }
 
     @Override
-    public List<Cliente> listarClientes() {
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public Optional<Cliente> findById(Integer id) {
+        try {
+            String sql = """
+                    SELECT * FROM cliente WHERE id_cliente = ?;
+                    """;
+            PreparedStatement preparar = conexion.prepareStatement(sql);
+            preparar.setInt(1, id);
+            ResultSet resultado = preparar.executeQuery();
+            resultado.next();
+            return Optional.of(new Cliente(
+                    resultado.getInt("id_cliente"),
+                    resultado.getString("nombre"),
+                    resultado.getString("apellido"),
+                    resultado.getString("celular"),
+                    resultado.getString("dni"),
+                    resultado.getString("direccion")));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    @Override
+    public List<Cliente> findAll() {
         List<Cliente> clientes = new ArrayList<>();
         try {
             String sql = """
@@ -132,4 +134,6 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         }
 
     }
+
+
 }

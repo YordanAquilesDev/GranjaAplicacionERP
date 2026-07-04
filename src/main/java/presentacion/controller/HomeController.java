@@ -3,8 +3,6 @@ package presentacion.controller;
 
 import aplicacion.serviceimpl.CompraServiceImpl;
 import aplicacion.serviceimpl.VentaServiceImpl;
-import dominio.servicio.CompraService;
-import dominio.servicio.VentaService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

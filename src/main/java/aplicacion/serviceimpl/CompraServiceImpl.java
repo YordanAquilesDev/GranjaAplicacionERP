@@ -6,14 +6,12 @@ import java.util.List;
 import aplicacion.repositoryimpl.CompraRepositoryImpl;
 import dominio.modelos.Compra;
 import dominio.modelos.DetalleCompra;
-import dominio.servicio.CompraService;
-import dominio.repository.CompraRepository;
 
 public class CompraServiceImpl implements CompraService {
     private final CompraRepository compraRepository;
 
     public CompraServiceImpl() {
-        this.compraRepository = new CompraRepositoryImpl();
+        this.compraRepository = new CompraRepository();
     }
 
     public Compra guardarCompra(DetalleCompra detalleCompra) {

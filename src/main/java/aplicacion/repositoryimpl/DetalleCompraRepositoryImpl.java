@@ -1,21 +1,19 @@
 package aplicacion.repositoryimpl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import dominio.modelos.DetalleCompra;
 import dominio.modelos.Producto;
-import dominio.repository.CompraRepository;
-import dominio.repository.DetalleCompraRepository;
-import dominio.repository.ProductoRepository;
+import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
-public class DetalleCompraRepositoryImpl implements DetalleCompraRepository {
+public class DetalleCompraRepositoryImpl implements JpaRepository<DetalleCompra,Integer> {
     Connection conexion;
 
     private final ProductoRepository productoRepository;
@@ -25,7 +23,7 @@ public class DetalleCompraRepositoryImpl implements DetalleCompraRepository {
         this.productoRepository = new ProductoRepositoryImpl();
     }
 
-    @Override
+
     public DetalleCompra Guardar(DetalleCompra nuevoDetalle) {
         String sql = """
                 INSERT INTO detalle_compra (id_compra, id_producto, cantidad, subtotal)
@@ -62,47 +60,6 @@ public class DetalleCompraRepositoryImpl implements DetalleCompraRepository {
         }
     }
 
-    public List<DetalleCompra> listarPorFecha(Date fecha, Date fecha2) {
-        List<DetalleCompra> detalles = new ArrayList<>();
-        List<Producto> productos = new ArrayList<>();
-        List<Integer> cantidades = new ArrayList<>();
-        List<Double > subtotals = new ArrayList<>();
-        try {
-            String sql = """
-                    selet * from detalle_compra
-                    where fecha between ? and ?;
-
-                    """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
-            preparar.setDate(1, fecha);
-            preparar.setDate(2, fecha2);
-            ResultSet rs = preparar.executeQuery();
-            int temp = 1;
-            while (rs.next()) {
-                productos.add(productoRepository.buscarPorId(rs.getInt("id_producto")));
-                cantidades.add(rs.getInt("cantidad"));
-                subtotals.add(rs.getDouble("subtotal"));
-                if (temp < rs.getInt("id_detalle")) {
-                    detalles.add(new DetalleCompra(
-                            rs.getInt("id_detalle"),
-                            null,
-                            productos,
-                            cantidades,
-                            subtotals));
-
-                    temp = rs.getInt("id_detalle");
-                    productos = new ArrayList<>();
-                    cantidades = new ArrayList<>();
-                }
-
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
     public DetalleCompra ObtenerPorId(Long id) {
         List<Producto> productos = new ArrayList<>();
@@ -175,4 +132,28 @@ public class DetalleCompraRepositoryImpl implements DetalleCompraRepository {
         return null;
     }
 
+    @Override
+    public int saveAndFindId(DetalleCompra objeto) {
+        return 0;
+    }
+
+    @Override
+    public int update(DetalleCompra objeto) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public Optional<DetalleCompra> findById(Integer integer) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<DetalleCompra> findAll() {
+        return List.of();
+    }
 }

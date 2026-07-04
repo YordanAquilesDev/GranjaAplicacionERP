@@ -1,12 +1,14 @@
 package dominio.modelos;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Compra {
     private int idCompra;
     private Proveedor proveedor;
     private Date fecha;
     private double total;
+    List<DetalleCompra> detalleCompras;
 
     public Compra(int idCompra,
             Date fecha,

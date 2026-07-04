@@ -3,9 +3,6 @@ package aplicacion.repositoryimpl;
 import aplicacion.serviceimpl.ProductoServiceImpl;
 import aplicacion.serviceimpl.VentaServiceImpl;
 import dominio.modelos.DetalleVenta;
-import dominio.repository.DetalleVentaRepository;
-import dominio.servicio.ProductoService;
-import dominio.servicio.VentaService;
 import presentacion.app.ConexionPostgresSQL;
 
 import java.sql.*;

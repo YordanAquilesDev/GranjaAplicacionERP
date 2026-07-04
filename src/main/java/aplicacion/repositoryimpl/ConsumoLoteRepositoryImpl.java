@@ -7,16 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import dominio.modelos.Animal;
 import dominio.modelos.ConsumoLote;
 import dominio.modelos.Producto;
-import dominio.repository.ConsumoLoteRepository;
-import dominio.repository.LoteAnimalRepository;
-import dominio.repository.ProductoRepository;
+import dominio.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
-public class ConsumoLoteRepositoryImpl implements ConsumoLoteRepository {
+public class ConsumoLoteRepositoryImpl implements JpaRepository<ConsumoLote, Integer> {
     Connection conexion;
     private final LoteAnimalRepository loteAnimal;
     private final ProductoRepository producto;
@@ -29,29 +28,8 @@ public class ConsumoLoteRepositoryImpl implements ConsumoLoteRepository {
 
     }
 
-    @Override
-    public ConsumoLote guardarConsumoLote(ConsumoLote consumo) {
-        try {
-            String sql = """
-                    INSERT INTO consumo_lote VALUES
-                    (?,?,?,?)
 
-                    """;
-            PreparedStatement preparar = conexion.prepareStatement(sql,
-                    Statement.RETURN_GENERATED_KEYS);
-            ResultSet resultado = preparar.executeQuery();
-            int idGenerado = resultado.getInt("id_consumo");
-            consumo.setIdConsumo(idGenerado);
 
-            return consumo;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @Override
     public List<ConsumoLote> listarConsumoLotes() {
         List<ConsumoLote> consumos = new ArrayList<>();
         List<Producto> productos = new ArrayList<>();
@@ -90,31 +68,7 @@ public class ConsumoLoteRepositoryImpl implements ConsumoLoteRepository {
         return List.of();
     }
 
-    @Override
-    public ConsumoLote loteMasConsumidor() {
-        List<Producto> productos = new ArrayList<>();
-        try {
-            String sql = """
-                            SELECT  * FROM consumo_lote
-                            ORDER BY cantidad
-                            LIMIT 1;
-                    """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
-            ResultSet resultado = preparar.executeQuery();
 
-            return new ConsumoLote(
-                    resultado.getInt("id_consumo"),
-                    loteAnimal.traerPorId(
-                            resultado.getInt("id_lote")),
-                    resultado.getInt("cantidad"),
-                    null,
-                    resultado.getDate("fecha"));
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
     public ConsumoLote obtenerConsumoPorId(Long id) {
         try {
@@ -167,5 +121,65 @@ public class ConsumoLoteRepositoryImpl implements ConsumoLoteRepository {
 
         }
 
+    }
+
+
+    @Override
+    public int saveAndFindId(ConsumoLote objeto) {
+        try {
+            String sql = """
+                    INSERT INTO consumo_lote VALUES
+                    (?,?,?,?)
+
+                    """;
+            PreparedStatement preparar = conexion.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS);
+            ResultSet resultado = preparar.executeQuery();
+            return resultado.getInt("id_consumo");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int update(ConsumoLote objeto) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Integer integer) {
+        return 0;
+    }
+
+    @Override
+    public Optional<ConsumoLote> findById(Integer id) {
+        try {
+            String sql = """
+                    SELECT * FROM consumo_lote
+                    WHERE id_consumo= ?
+                    """;
+            PreparedStatement preparar = conexion.prepareStatement(sql);
+            preparar.setLong(1, id);
+            ResultSet resultado = preparar.executeQuery();
+            if (resultado.next()) {
+                return Optional.of(new ConsumoLote(
+                        resultado.getInt("id_consumo"),
+                        loteAnimal.traerPorId(resultado.getInt("id_lote")),
+                        resultado.getInt("cantidad"),
+                        null,
+                        resultado.getDate("fecha")));
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<ConsumoLote> findAll() {
+        return List.of();
     }
 }

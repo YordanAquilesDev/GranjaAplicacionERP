@@ -2,7 +2,6 @@ package aplicacion.serviceimpl;
 
 import dominio.modelos.Animal;
 import dominio.modelos.LoteAnimal;
-import dominio.servicio.LoteAnimalService;
 
 import java.util.List;
 
