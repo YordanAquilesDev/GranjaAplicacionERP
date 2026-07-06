@@ -1,84 +1,66 @@
-/* ==========================================================================
-   CONTENEDOR PRINCIPAL DEL SISTEMA
-   ========================================================================== */
-.main-container {
-    -fx-background-color: #f8fafc; /* Fondo gris muy claro para el área de trabajo */
+/* --- Estructura Base de la Ventana Principal --- */
+.root {
+    -fx-font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    -fx-background-color: #f8fafc; /* Fondo general gris ultra claro */
 }
 
-/* ==========================================================================
-   BARRA LATERAL (SIDEBAR)
-   ========================================================================== */
+/* --- Menú Lateral Izquierdo (Sidebar) --- */
 .sidebar {
-    -fx-background-color: #1e293b; /* Color oscuro profesional (Slate) */
-    -fx-padding: 15px 12px;        /* Margen interno para dar aire al contenido */
+    -fx-background-color: #1e293b; /* Slate / Pizarra Oscuro (Estilo Dashboard Moderno) */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 15, 0, 0, 0);
+    -fx-border-color: transparent #334155 transparent transparent;
+    -fx-border-width: 1px;
 }
 
-/* Contenedor del Logo de la Granja */
-.profile-container {
-    -fx-alignment: center;
-    -fx-padding: 5px 0px 15px 0px;
-}
-
-/* ==========================================================================
-   LISTA DE BOTONES DE NAVEGACIÓN
-   ========================================================================== */
-.menu-container {
-    -fx-spacing: 5px;             /* <-- SEPARACIÓN EXACTA ENTRE CADA BOTÓN */
-    -fx-alignment: top-center;
-}
-
-/* Estilo Base para TODOS los Botones (Activos e Inactivos) */
+/* --- Botones del Menú Lateral --- */
 .menu-button {
     -fx-background-color: transparent;
-    -fx-background-radius: 6px;
-    -fx-text-fill: #94a3b8;        /* Color gris suave para texto e iconos inactivos */
-    -fx-font-family: "Segoe UI", Arial, sans-serif;
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-alignment: center-left;
-    -fx-padding: 25px 10px;        /* Altura interna del botón */
-    -fx-graphic-text-gap: 12px;    /* Separación entre el icono y el texto */
+    -fx-background-radius: 8px;
+    -fx-text-fill: #94a3b8; /* Texto gris claro/atenuado por defecto */
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12px 16px;
     -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+    -fx-max-width: 1.7976931348623157E308; /* Obliga al botón a ocupar todo el ancho */
 }
 
-/* Estado: Pasar el mouse sobre un botón inactivo */
+/* Efecto Hover (Al pasar el mouse) */
 .menu-button:hover {
     -fx-background-color: #334155; /* Fondo un poco más claro */
-    -fx-text-fill: #f8fafc;        /* Texto blanco brillante */
-    -fx-translate-x: 4px;         /* Efecto sutil de desplazamiento a la derecha */
+    -fx-text-fill: #f8fafc; /* Texto blanco brillante */
 }
 
-/* ==========================================================================
-   BOTÓN ACTIVO (VISTA SELECCIONADA ACTUALMENTE)
-   ========================================================================== */
-.menu-button-active {
-    -fx-background-color: #10b981; /* Verde Esmeralda Moderno */
-    -fx-background-radius: 6px;
-    -fx-text-fill: #ffffff;        /* Texto completamente blanco */
-    -fx-font-family: "Segoe UI", Arial, sans-serif;
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-alignment: center-left;
-    -fx-padding: 40px 20px;
-    -fx-graphic-text-gap: 12px;
+/* Estado Activo / Seleccionado (Aplica esta clase mediante programación al presionar el botón) */
+.menu-button:focused, .menu-button-active {
+    -fx-background-color: #37474F; /* Color base Slate Corporativo */
+    -fx-text-fill: #ffffff;
+    -fx-effect: inset 3px 0px 0px 0px #e65100; /* Detalle de línea naranja a la izquierda si el componente lo soporta */
+}
+
+/* --- Botón de Salida Especial --- */
+.menu-button-exit {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #f87171; /* Rojo suave de alerta */
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12px 16px;
     -fx-cursor: hand;
-    /* Sombra interna para resaltar el botón seleccionado */
-    -fx-effect: dropshadow(three-pass-box, rgba(16, 185, 129, 0.4), 6, 0, 0, 2);
+    -fx-max-width: 1.7976931348623157E308;
+    /* Empuja el botón hacia abajo si pones un Spacer en el VBox */
+    -fx-margin-top: 20px;
 }
 
-/* Estado: Pasar el mouse sobre el botón que YA está seleccionado */
-.menu-button-active:hover {
-    -fx-background-color: #059669; /* Verde ligeramente más oscuro para feedback */
+.menu-button-exit:hover {
+    -fx-background-color: #7f1d1d; /* Fondo rojo oscuro al pasar el mouse */
+    -fx-text-fill: #fef2f2;
 }
 
-/* ==========================================================================
-   BOTÓN DE SALIR (AL FINAL DE LA BARRA)
-   ========================================================================== */
-.exit-button {
-    -fx-text-fill: #f87171;        /* Color rojo suave */
-}
-
-/* Estado: Pasar el mouse sobre Salir */
-.exit-button:hover {
-    -fx-background-color: #f87171
+/* --- Área de Contenido Central Dinámico --- */
+.main-content-area {
+    -fx-background-color: #f1f5f9; /* Fondo gris claro que resalta las tarjetas blancas inyectadas */
+    -fx-padding: 0px;
 }

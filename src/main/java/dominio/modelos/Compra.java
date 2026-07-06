@@ -1,6 +1,7 @@
 package dominio.modelos;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Compra {
@@ -8,7 +9,7 @@ public class Compra {
     private Proveedor proveedor;
     private Date fecha;
     private double total;
-    List<DetalleCompra> detalleCompras;
+    List<DetalleCompra> detalleCompras=new ArrayList<>();
 
     public Compra(int idCompra,
             Date fecha,
@@ -50,5 +51,9 @@ public class Compra {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public void addDetalleCompra(DetalleCompra detalleCompra){
+        detalleCompras.add(detalleCompra);
     }
 }

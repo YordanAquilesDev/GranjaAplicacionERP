@@ -1,6 +1,7 @@
 package dominio.modelos;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoteAnimal {
@@ -11,7 +12,9 @@ public class LoteAnimal {
     private int cantidadActual;
     private double pesoPromedio;
     private String estadoLote;
-    List<ConsumoLote> consumos;
+
+    List<ConsumoLote> consumos= new ArrayList<>();
+
 
     public LoteAnimal(int idLote, Animal animal,
             Date fechaInicio,
@@ -26,6 +29,10 @@ public class LoteAnimal {
         this.cantidadActual = cantidadActual;
         this.pesoPromedio = pesoPromedio;
         this.estadoLote = estadoLote;
+    }
+
+    public LoteAnimal() {
+
     }
 
     public Date getFechaInicio() {
@@ -82,5 +89,9 @@ public class LoteAnimal {
 
     public void setEstadoLote(String estadoLote) {
         this.estadoLote = estadoLote;
+    }
+
+    public void addConsumo(ConsumoLote consumo){
+        consumos.add(consumo);
     }
 }

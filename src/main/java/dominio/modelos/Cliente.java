@@ -1,5 +1,6 @@
 package dominio.modelos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente {
@@ -9,7 +10,7 @@ public class Cliente {
     private String dni;
     private String celular;
     private String direccion;
-    List<Compra> compras;
+    List<Compra> compras=new ArrayList<>();
 
     public String getDireccion() {
         return direccion;
@@ -72,5 +73,7 @@ public class Cliente {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
+ public void addCompra(Compra compra){
+        compras.add(compra);
+ }
 }

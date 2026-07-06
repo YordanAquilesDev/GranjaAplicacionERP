@@ -1,115 +1,176 @@
 package presentacion.controller;
 
-import aplicacion.serviceimpl.CompraServiceImpl;
-import aplicacion.serviceimpl.VentaServiceImpl;
-import dominio.modelos.Compra;
-import dominio.modelos.Venta;
 import javafx.fxml.FXML;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import presentacion.util.CreadorGraficoLineChar;
 
-import java.util.List;
+import javafx.scene.chart.BarChart;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent; // <
+
+import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableView;
+import javafx.scene.input.ScrollEvent;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class DashboardController {
-    private final CompraService compraService;
-    private final VentaService ventaService;
-    public DashboardController() {
-        this.compraService = new CompraServiceImpl();
-        this.ventaService = new VentaServiceImpl();
+
+    // Instancia del controlador principal (el que maneja el menú lateral y el contenedor)
+    private HomeController mainController;
+
+    // Método setter para inyectar el controlador principal
+    public void setMainController(HomeController mainController) {
+        this.mainController = mainController;
     }
 
     @FXML
-    private LineChart<String, Number> graficoBalance;
+    private void navegarAnimales() {
+        if (mainController != null)
+            mainController.navegarAnimales();
+        System.out.println(mainController);
+        System.out.println("navegarAnimales");
+    }
+
+    @FXML
+    private void navegarLotes() {
+        if (mainController != null) mainController.navegarLotes();
+    }
+
+    @FXML
+    private void navegarPedidos() {
+        if (mainController != null) mainController.navegarPedidos();
+    }
+
+    @FXML
+    private void navegarVentas() {
+        if (mainController != null) mainController.navegarVentas();
+    }
+
+    @FXML
+    private void navegarStock() {
+        if (mainController != null) mainController.navegarStock();
+    }
+
+    @FXML
+    private void navegarMovimientos() {
+        if (mainController != null) mainController.navegarMovimientos();
+    }
+    @FXML
+    private void navegarSanidad(MouseEvent event) {
+        System.out.println("Navegando a Sanidad y Alertas...");
+        // Si usas el mainController para cambiar de pantalla, sería algo como:
+        // mainController.cambiarPantalla("/presentacion/fxml/Sanidad.fxml");
+    }
+
+    @FXML
+    private void navegarEficiencia(MouseEvent event) {
+        System.out.println("Navegando a Eficiencia Alimenticia...");
+        // mainController.cambiarPantalla("/presentacion/fxml/Eficiencia.fxml");
+    }
+
+    @FXML
+    private void navegarSensores(MouseEvent event) {
+        System.out.println("Navegando a Control Ambiental...");
+        // mainController.cambiarPantalla("/presentacion/fxml/Sensores.fxml");
+    }
+
+    @FXML
+    private void navegarCompras(MouseEvent event) {
+
+    }
+
+    @FXML
+    private void navegarFinanzas(MouseEvent event) {
+
+    }
+
+    @FXML
+    private ScrollPane scrollPrincipal;
+    // 2. Inyecta tus dos tablas pesadas
+    @FXML
+    private TableView<?> tblRendimientoLotes;
+    @FXML
+    private TableView<?> tblLotesProximos;
+
+ // Inyecta tu gráfico si aún no lo has hecho
+
+
+    /**
+     * Captura el scroll del mouse sobre la tabla y lo traslada al contenedor principal,
+     * evitando que la tabla consuma el evento y se genere lag.
+     */
+    private void vincularScrollSuave(TableView<?> tabla) {
+        if (tabla == null) return;
+
+        tabla.addEventFilter(ScrollEvent.SCROLL, event -> {
+            if (scrollPrincipal != null && event.getDeltaY() != 0) {
+                // Obtener la cantidad de desplazamiento vertical
+                double deltaY = event.getDeltaY();
+
+                // Obtener la altura total del contenido del ScrollPane
+                double contentHeight = scrollPrincipal.getContent().getBoundsInLocal().getHeight();
+                double viewportHeight = scrollPrincipal.getViewportBounds().getHeight();
+
+                // Calcular el nuevo valor de scroll de manera proporcional
+                if (contentHeight > viewportHeight) {
+                    double scrollValue = scrollPrincipal.getVvalue();
+                    // Ajusta el multiplicador (0.002 o 0.005) según qué tan rápido quieras que baje
+                    double nuevoScroll = scrollValue - (deltaY * 0.003);
+
+                    // Limitar los valores entre 0.0 (arriba) y 1.0 (abajo)
+                    scrollPrincipal.setVvalue(Math.max(0.0, Math.min(1.0, nuevoScroll)));
+                }
+
+                // IMPORTANTE: Consumir el evento para que la tabla no intente procesarlo internamente
+                event.consume();
+            }
+        });
+    }
+
+// Asegúrate de tener inyectado tu ScrollPane
+
+    @FXML
+    private BarChart<?, ?> chartBalance;
 
     @FXML
     public void initialize() {
-        if (graficoBalance.getYAxis() instanceof NumberAxis) {
-            NumberAxis yAxis = (NumberAxis) graficoBalance.getYAxis();
+        if (chartBalance != null) {
+            chartBalance.setAnimated(false);
+        }
 
-            // 1. Apagamos el cálculo automático para tomar el control de los pasos
-            yAxis.setAutoRanging(false);
+        if (scrollPrincipal != null) {
+            // CAMBIADO: Usamos addEventFilter para interceptar el evento a la fuerza
+            scrollPrincipal.addEventFilter(ScrollEvent.SCROLL, event -> {
+                // 1. Iniciar el cronómetro de rendimiento
+                long tiempoInicio = System.nanoTime();
 
-            // 2. Definimos los límites rígidos del eje
-            yAxis.setLowerBound(0);         // Empieza en 0
-            yAxis.setUpperBound(500000);    // El techo máximo será 500K
+                double deltaY = event.getDeltaY();
+                double contentHeight = scrollPrincipal.getContent().getBoundsInLocal().getHeight();
+                double viewportHeight = scrollPrincipal.getViewportBounds().getHeight();
+                double scrollableHeight = contentHeight - viewportHeight;
 
-            // 3. ¡ESTA ES LA CLAVE! Forzamos a que aparezca una línea guía EXACTAMENTE cada 100,000
-            yAxis.setTickUnit(100000);
+                if (scrollableHeight > 0) {
+                    double vvalue = scrollPrincipal.getVvalue();
 
-            // 4. Le damos el formato compacto 'K' para que no sature la pantalla de ceros
-            yAxis.setTickLabelFormatter(new javafx.util.StringConverter<Number>() {
-                @Override
-                public String toString(Number object) {
-                    double valor = object.doubleValue();
-                    if (valor >= 1000) {
-                        return String.format("%.0fK", valor / 1000); // Transforma 100000 en 100K
-                    }
-                    return String.format("%.0f", valor);
+                    // Multiplicador agresivo para forzar velocidad fluida
+                    double pixelesPorGiro = 100.0;
+                    double desplazamiento = (deltaY > 0 ? 1 : -1) * (pixelesPorGiro / scrollableHeight);
+
+                    double nuevoVvalue = vvalue - desplazamiento;
+                    scrollPrincipal.setVvalue(Math.max(0.0, Math.min(1.0, nuevoVvalue)));
                 }
 
-                @Override
-                public Number fromString(String string) {
-                    return 0;
-                }
+                // Consumimos el evento para que el comportamiento lento por defecto no haga nada
+                event.consume();
+
+                // 2. Calcular tiempo de procesamiento
+                long tiempoFin = System.nanoTime();
+                double tiempoTotalMilisegundos = (tiempoFin - tiempoInicio) / 1_000_000.0;
+
             });
-        }
-        List<Compra> compras = compraService.obtenerTodasLasCompras();
-        List<Venta> ventas = ventaService.obtenerTodasLasVentas();
-
-        // Tus validaciones de consola (¡Excelente para hacer debug!)
-        if (compras.isEmpty()) {
-            System.out.println("Compras no encontrado");
-        }
-        if (ventas.isEmpty()) {
-            System.out.println("Ventas no encontrado");
-        }
-
-        for (Compra compra : compras) {
-            System.out.println("ID Compra cargada: " + compra.getIdCompra());
-        }
-        for (Venta venta : ventas) {
-            System.out.println("ID Venta cargada: " + venta.getIdVenta());
-        }
-
-        // =======================================================================
-        // 🌟 LO QUE FALTABA: Mapear y procesar las listas cronológicamente
-        // =======================================================================
-
-        // Procesamos la lista de ventas usando la nueva función con comodín (?) para la fecha
-        XYChart.Series<String, Number> serieVentas = CreadorGraficoLineChar.mapearListaASerie(
-                "Ventas Totales",
-                ventas,
-                Venta::getFecha,
-                Venta::getTotal
-        );
-
-        // Procesamos la lista de compras
-        XYChart.Series<String, Number> serieCompras = CreadorGraficoLineChar.mapearListaASerie(
-                "Compras / Inversión",
-                compras,
-                Compra::getFecha,
-                Compra::getTotal
-        );
-
-        // =======================================================================
-        // 🎨 RENDERIZAR LAS SERIES PROCESADAS EN EL GRÁFICO
-        // =======================================================================
-
-        // Ahora sí pasamos las variables 'serieVentas' y 'serieCompras' (¡Ya no las listas directas!)
-        CreadorGraficoLineChar.graficarMultiplesLineas(
-                graficoBalance,
-                "Balance Financiero: Ingresos vs Egresos",
-                serieVentas,
-                serieCompras
-        );
-
-        // Optimizamos el eje Y para que no se aplasten las curvas
-        if (graficoBalance.getYAxis() instanceof NumberAxis) {
-            NumberAxis yAxis = (NumberAxis) graficoBalance.getYAxis();
-            yAxis.setAutoRanging(true);
-            yAxis.setForceZeroInRange(true);
+        } else {
+            System.out.println("⚠️ ALERTA: 'scrollPrincipal' es NULL. Revisa si pusiste fx:id=\"scrollPrincipal\" en el FXML.");
         }
     }
 }
+

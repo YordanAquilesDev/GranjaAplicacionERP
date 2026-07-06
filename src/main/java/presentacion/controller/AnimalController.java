@@ -5,6 +5,7 @@ import dominio.modelos.Animal;
 import dominio.servicio.JlaService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -28,6 +29,8 @@ public class AnimalController {
     @FXML private TextField txtRaza;
     @FXML private Button btnGuardar;
     @FXML private Button btnLimpiar;
+    @FXML private Button btnActualizar;
+    @FXML private Button btnEliminar;
     
     @FXML private TableView<Animal> tblAnimales;
     @FXML private TableColumn<Animal, Integer> colId;
@@ -113,4 +116,15 @@ public class AnimalController {
         }
     }
 
+    @FXML
+    void handleActualizar(ActionEvent event) {
+        if (tblAnimales.getSelectionModel().getSelectedItem() != null) {
+
+        }
+    }
+
+    @FXML
+    void handleEliminar(ActionEvent event) {
+        if (tblAnimales.getSelectionModel().getSelectedItem() != null) {}
+    }
 }

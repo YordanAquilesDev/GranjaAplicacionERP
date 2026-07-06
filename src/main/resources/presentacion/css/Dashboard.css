@@ -1,0 +1,205 @@
+/* --- Contenedor Principal (Limpio y de Alto Contraste) --- */
+.dashboard-scroll {
+    -fx-background-color: #f4f6f9;
+    -fx-fit-to-width: true;
+}
+
+.dashboard-container {
+    -fx-background-color: #f4f6f9;
+}
+
+.dashboard-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0f172a; /* Azul casi negro muy elegante */
+}
+
+.dashboard-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+}
+
+/* --- Base de Tarjetas Interactivas (KPI Cards) --- */
+.kpi-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px;
+    -fx-padding: 20px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 16px;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+    /* Sombras súper ligeras para que no lagueen el scroll */
+    -fx-effect: dropshadow(two-pass-box, rgba(15, 23, 42, 0.04), 6, 0, 0, 2);
+}
+
+.kpi-header {
+    -fx-font-size: 12px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #475569;
+    -fx-letter-spacing: 0.5px;
+}
+
+.kpi-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0f172a;
+    -fx-padding: 8px 0;
+}
+
+/* --- VARIACIONES DE COLOR VIVAS E INTERACTIVAS (:hover) --- */
+
+/* 1. Tarjetas Estándar / Azules (Animales, Pedidos, Eficiencia) */
+.kpi-card:hover {
+    -fx-background-color: #edf2ff; /* Fondo azul sutil */
+    -fx-border-color: #3b82f6;     /* Borde Azul Eléctrico */
+    -fx-effect: dropshadow(two-pass-box, rgba(59, 130, 246, 0.15), 10, 0, 0, 4);
+}
+.kpi-subtext {
+    -fx-font-size: 12px;
+    -fx-text-fill: #3b82f6;
+    -fx-font-weight: bold;
+}
+
+/* 2. Tarjeta Accent (Lotes - Naranja Enérgico) */
+.kpi-card-accent {
+    -fx-border-color: #ffedd5;
+}
+.kpi-card-accent:hover {
+    -fx-background-color: #fff7ed;
+    -fx-border-color: #f97316; /* Naranja neón */
+    -fx-effect: dropshadow(two-pass-box, rgba(249, 115, 22, 0.15), 10, 0, 0, 4);
+}
+
+/* 3. Tarjeta Alerta Crítica / Sanidad (Rojo Carmín) */
+.kpi-card-warning {
+    -fx-border-color: #fee2e2;
+}
+.kpi-card-warning:hover {
+    -fx-background-color: #fef2f2;
+    -fx-border-color: #ef4444; /* Rojo vivo */
+    -fx-effect: dropshadow(two-pass-box, rgba(239, 68, 68, 0.15), 10, 0, 0, 4);
+}
+.kpi-card-warning .kpi-value { -fx-text-fill: #b91c1c; }
+.kpi-subtext-warning {
+    -fx-font-size: 12px;
+    -fx-text-fill: #ef4444;
+    -fx-font-weight: bold;
+}
+
+/* 4. Tarjeta Clima / Ambiente (Cian/Info) */
+.kpi-card-info {
+    -fx-border-color: #e0f2fe;
+}
+.kpi-card-info:hover {
+    -fx-background-color: #f0f9ff;
+    -fx-border-color: #06b6d4; /* Cian brillante */
+    -fx-effect: dropshadow(two-pass-box, rgba(6, 182, 212, 0.15), 10, 0, 0, 4);
+}
+.kpi-subtext-info {
+    -fx-font-size: 12px;
+    -fx-text-fill: #0891b2;
+    -fx-font-weight: bold;
+}
+
+/* 5. Tarjeta Rentabilidad / Éxito (Verde Esmeralda Monetario) */
+.kpi-card-success {
+    -fx-border-color: #dcfce7;
+}
+.kpi-card-success:hover {
+    -fx-background-color: #f0fdf4;
+    -fx-border-color: #10b981; /* Verde esmeralda */
+    -fx-effect: dropshadow(two-pass-box, rgba(16, 185, 129, 0.15), 10, 0, 0, 4);
+}
+.kpi-value-success {
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #047857;
+    -fx-padding: 8px 0;
+}
+.kpi-subtext-success {
+    -fx-font-size: 12px;
+    -fx-text-fill: #10b981;
+    -fx-font-weight: bold;
+}
+
+/* --- Contenedores Grandes (Gráficos y Tablas) --- */
+.chart-container, .info-block {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px;
+    -fx-padding: 24px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 16px;
+    -fx-border-width: 1px;
+}
+.chart-container:hover, .info-block:hover {
+    -fx-border-color: #cbd5e1;
+}
+
+.section-inner-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+    -fx-padding: 0 0 12 0;
+}
+
+/* --- Listados internos del Almacén / Kardex --- */
+.info-item {
+    -fx-font-size: 13px;
+    -fx-text-fill: #475569;
+    -fx-padding: 6px 0;
+}
+.info-item-danger {
+    -fx-font-size: 13px;
+    -fx-text-fill: #df2c2c;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 0;
+}
+
+/* --- Tablas Modernas Adaptadas --- */
+.tabla-dashboard {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+}
+.tabla-dashboard .column-header-background {
+    -fx-background-color: #f8fafc;
+}
+.tabla-dashboard .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+.tabla-dashboard .column-header .label {
+    -fx-text-fill: #475569;
+    -fx-font-weight: bold;
+}
+.tabla-dashboard .table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #f1f5f9 transparent;
+    -fx-cell-size: 38px;
+}
+.tabla-dashboard .table-row-cell:hover {
+    -fx-background-color: #f8fafc; /* Iluminación de fila al pasar el mouse */
+}
+
+.dashboard-container {
+    -fx-background-color: #f4f6f9;
+    /* Fuerza al motor de JavaFX a guardar los componentes estáticos en la GPU */
+    -fx-cache: true;
+    -fx-cache-hint: speed;
+}
+
+/* Evita que los efectos visuales de las tablas se sobre-calculen */
+.tabla-dashboard {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-cache: true;
+    -fx-cache-hint: speed;
+}
+/* Esto remueve por completo el espacio visual que ocupan las barras en la tabla sin romper el FXML */
+.tabla-dashboard .scroll-bar:vertical,
+.tabla-dashboard .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+}

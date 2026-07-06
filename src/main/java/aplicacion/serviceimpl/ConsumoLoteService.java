@@ -9,11 +9,8 @@ import dominio.modelos.ConsumoLote;
 import dominio.modelos.LoteAnimal;
 import dominio.servicio.JlaService;
 
-public class ConsumoServiceImpl implements JlaService<ConsumoLote,Integer> {
+public class ConsumoLoteService implements JlaService<ConsumoLote,Integer> {
 
-
-    public ConsumoServiceImpl() {
-    }
 
 
     @Override

@@ -1,5 +1,6 @@
 package dominio.modelos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Animal {
@@ -7,15 +8,7 @@ public class Animal {
     private int idAnimal;
     private String especie;
     private String raza;
-    List<LoteAnimal> lotes;
-
-    public void setEspecie(String especie) {
-        this.especie = especie;
-    }
-
-    public String getRaza() {
-        return raza;
-    }
+    List<LoteAnimal> lotes= new ArrayList<>();
 
     public void setRaza(String raza) {
         this.raza = raza;
@@ -36,6 +29,9 @@ public class Animal {
 
     }
 
+    public void addLote(LoteAnimal loteAnimal) {
+        lotes.add(loteAnimal);
+    }
     public int getIdAnimal() {
         return idAnimal;
     }
@@ -47,4 +43,13 @@ public class Animal {
     public String getEspecie() {
         return especie;
     }
+
+    public void setEspecie(String especie) {
+        this.especie = especie;
+    }
+
+    public String getRaza() {
+        return raza;
+    }
+
 }

@@ -1,6 +1,8 @@
 package dominio.modelos;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Pedido {
 
@@ -9,6 +11,7 @@ public class Pedido {
     private Date fecha;
     private String estado;
     double total;
+    List<DetallePedido> detallePedido = new ArrayList<>();
 
     public Pedido(int id,
             Date fecha,
@@ -65,6 +68,10 @@ public class Pedido {
 
     public Pedido() {
 
+    }
+
+    public void addDetallePedido(DetallePedido det){
+        detallePedido.add(det);
     }
 
 }

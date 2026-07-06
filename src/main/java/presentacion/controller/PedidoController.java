@@ -11,7 +11,6 @@ import java.util.List;
 
 public class PedidoController {
 
-    private final PedidoService pedidoService;
 
     // Inyectamos el contenedor que agregamos en el FXML
     @FXML
@@ -21,15 +20,13 @@ public class PedidoController {
     private List<Pedido> todosLosPedidos;
 
     // Constructor: Aquí inicializas el servicio de forma segura
-    public PedidoController() {
-        this.pedidoService = new PedidoServiceImpl();
+    public PedidoController(){
     }
 
     @FXML
     public void initialize() {
         try {
             // 1. Cargamos los datos desde el servicio de manera segura una vez instanciado
-            todosLosPedidos = pedidoService.obtenerTodosLosPedidos();
 
             // 2. Validamos que la lista no venga vacía o nula para evitar crashes
             if (todosLosPedidos != null && !todosLosPedidos.isEmpty()) {
