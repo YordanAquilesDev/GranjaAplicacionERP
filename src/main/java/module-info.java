@@ -2,7 +2,8 @@ module com.mackas.granja {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires java.desktop; // Si usas PostgreSQL
+    requires java.desktop;
+    requires org.jfree.jfreechart; // Si usas PostgreSQL
     
     // 1. AGREGA ESTAS LÍNEAS CON TU NUEVO PAQUETE:
     exports presentacion.app; 

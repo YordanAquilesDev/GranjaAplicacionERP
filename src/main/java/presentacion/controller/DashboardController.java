@@ -1,16 +1,22 @@
 package presentacion.controller;
 
+import dominio.modelos.Animal;
+import dominio.modelos.LoteAnimal;
 import javafx.fxml.FXML;
 
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent; // <
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableView;
 import javafx.scene.input.ScrollEvent;
+import org.jfree.data.Value;
+
 import java.net.URL;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DashboardController {
@@ -44,6 +50,11 @@ public class DashboardController {
     @FXML
     private void navegarVentas() {
         if (mainController != null) mainController.navegarVentas();
+    }
+
+    @FXML
+    private void navegarConsumoLote() {
+        if (mainController != null) mainController.navegarConsumoLote();
     }
 
     @FXML
@@ -89,8 +100,8 @@ public class DashboardController {
     // 2. Inyecta tus dos tablas pesadas
     @FXML
     private TableView<?> tblRendimientoLotes;
-    @FXML
-    private TableView<?> tblLotesProximos;
+
+
 
  // Inyecta tu gráfico si aún no lo has hecho
 
@@ -131,9 +142,72 @@ public class DashboardController {
 
     @FXML
     private BarChart<?, ?> chartBalance;
+    @FXML
+    private Label txtTotalAnimales;
+
+    @FXML
+    private Label txtTotalLotes;
+    // Cambia el <?> por <LoteAnimal>
+    @FXML
+    private TableView<LoteAnimal> tblLotesPróximos;
+
+    // Declara las columnas vinculándolas a la clase LoteAnimal y el tipo de dato que mostrarán
+    @FXML
+    private TableColumn<LoteAnimal, Integer> colProgresoLote; // Si el ID es entero
+    @FXML
+    private TableColumn<LoteAnimal, String> colProgresoTipo;
+    @FXML
+    private TableColumn<LoteAnimal, Integer> colProgresoDias;
+    @FXML
+    private TableColumn<LoteAnimal, String> colProgresoFecha; // Puedes usar String o Date
+    @FXML
+    private TableColumn<LoteAnimal, String> colProgresoEstado;
+
+    public void provar() {
+        txtTotalAnimales.setText("1000000");
+        txtTotalLotes.setText("1000000");
+
+        // 1. Decirle a cada columna qué variable/atributo de "LoteAnimal" debe leer
+        // Nota: Reemplaza las palabras entre comillas por los nombres EXACTOS de tus variables en LoteAnimal
+        colProgresoLote.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("idLote"));
+
+        // Si quieres mostrar la especie que está dentro del objeto Animal, puedes pasarle un String limpio
+        // o mapearlo. Por ahora asumamos que lee variables directas de tu clase LoteAnimal:
+        colProgresoTipo.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("estadoLote"));
+        colProgresoDias.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("cantidadInicio"));
+        colProgresoFecha.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("estadoLote"));
+        colProgresoEstado.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("estadoLote"));
+
+        // 2. Convertir tu lista común a una Lista Observable que JavaFX pueda leer en tiempo real
+        javafx.collections.ObservableList<LoteAnimal> datos = javafx.collections.FXCollections.observableArrayList(lista);
+
+        // 3. ¡INYECTAR LOS DATOS EN LA TABLA! Sin necesidad de un forEach
+        tblLotesPróximos.setItems(datos);
+    }
+
+    private List<LoteAnimal> lista= List.of(
+            new LoteAnimal(1,new Animal(),new Date(20,10,12),100,80,1.4,"actiivo"),
+            new LoteAnimal(1,new Animal(),new Date(20,10,12),100,80,1.4,"actiivo"),
+            new LoteAnimal(1,new Animal(),new Date(20,10,12),100,80,1.4,"actiivo")
+
+    );
+    @FXML
+    private TableColumn<LoteAnimal, Integer> colLoteNombre;
+    @FXML
+    private TableColumn<LoteAnimal, Integer> colLotePoblacion;
+    @FXML
+    private TableColumn<LoteAnimal, Integer> colLoteBajas;
+    @FXML
+    private TableColumn<LoteAnimal, Double> colLoteMortalidad;
+    @FXML
+    private TableColumn<LoteAnimal, Double> colLoteConsumo;
+    @FXML
+    private TableColumn<LoteAnimal, String> colLoteSanidad;
+
 
     @FXML
     public void initialize() {
+        provar();
         if (chartBalance != null) {
             chartBalance.setAnimated(false);
         }

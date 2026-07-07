@@ -24,6 +24,7 @@ public class HomeController {
     @FXML private Button btnProveedor;
     @FXML private Button btnCarga;
     @FXML private Button btnStock;
+    @FXML private Button btnConsumo;
     @FXML private Button btnSalir;
 
     @FXML private StackPane contenedorPrincipal;
@@ -45,6 +46,7 @@ public class HomeController {
         mapasNavegacion.put(btnProveedor, "/presentacion/fxml/Proveedor.fxml");
         mapasNavegacion.put(btnCarga, "/presentacion/fxml/CargaDatos.fxml");
         mapasNavegacion.put(btnStock, "/presentacion/fxml/Stock.fxml");
+        mapasNavegacion.put(btnConsumo, "/presentacion/fxml/ConsumoLote.fxml");
 
         // Fuerza a que la aplicación inicie mostrando el Dashboard por defecto
         navegarHome();
@@ -114,5 +116,6 @@ public class HomeController {
     @FXML public void navegarProveedores() { gestionarNavegacion(btnProveedor); }
     @FXML public void navegarCargaDatos() { gestionarNavegacion(btnCarga); }
     @FXML public void navegarStock() { gestionarNavegacion(btnStock); }
+    @FXML public void navegarConsumoLote(){ gestionarNavegacion(btnConsumo); }
     @FXML public void Salir() { System.exit(0); }
 }

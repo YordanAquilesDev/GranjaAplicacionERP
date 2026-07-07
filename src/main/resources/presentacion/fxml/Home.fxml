@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.Region?>
 
 <BorderPane stylesheets="@../css/Home.css"
             xmlns="http://javafx.com/javafx/17"
@@ -12,25 +13,35 @@
 
     <!-- MENÚ LATERAL IZQUIERDO (Fijo) -->
     <left>
-        <VBox spacing="10.0" styleClass="sidebar" prefWidth="250.0">
-            <padding>
-                <Insets top="20.0" right="10.0" bottom="20.0" left="10.0"/>
-            </padding>
+        <VBox styleClass="sidebar" prefWidth="260.0">
             <children>
-                <Button fx:id="btnHome" text="🏠 Panel Principal" onAction="#navegarHome" styleClass="menu-button"/>
-                <Button fx:id="btnAnimales" text="🐖 Animales" onAction="#navegarAnimales" styleClass="menu-button"/>
-                <Button fx:id="btnLote" text="📦 Lotes" onAction="#navegarLotes" styleClass="menu-button"/>
-                <Button fx:id="btnPedidos" text="📋 Pedidos" onAction="#navegarPedidos" styleClass="menu-button"/>
-                <Button fx:id="btnVenta" text="💰 Ventas" onAction="#navegarVentas" styleClass="menu-button"/>
-                <Button fx:id="btnStock" text="🌾 Stock / Almacén" onAction="#navegarStock" styleClass="menu-button"/>
-                <Button fx:id="btnMovim" text="🔄 Movimientos" onAction="#navegarMovimientos" styleClass="menu-button"/>
-                <Button fx:id="btnCompra" text=" Compras" onAction="#navegarCompras" styleClass="menu-button"/>
-                <!-- Agrega aquí el resto de tus botones de menú si hacen falta... -->
-                <Button fx:id="btnSalir" text="🚪 Salir" onAction="#Salir" styleClass="menu-button-exit"/>
+                <!-- Sección de Título / Logo del Dashboard opcional -->
+                <VBox styleClass="brand-container" alignment="CENTER_LEFT">
+                    <children>
+                        <javafx.scene.control.Label text="TERRACROP" styleClass="brand-title"/>
+                        <javafx.scene.control.Label text="Panel de Administración" styleClass="brand-subtitle"/>
+                    </children>
+                </VBox>
+
+                <!-- Botones del Menú Principal -->
+                <Button fx:id="btnHome" text="🏠  Panel Principal" onAction="#navegarHome" styleClass="menu-button"/>
+                <Button fx:id="btnAnimales" text="🐖  Animales" onAction="#navegarAnimales" styleClass="menu-button"/>
+                <Button fx:id="btnLote" text="📦  Lotes" onAction="#navegarLotes" styleClass="menu-button"/>
+                <Button fx:id="btnPedidos" text="📋  Pedidos" onAction="#navegarPedidos" styleClass="menu-button"/>
+                <Button fx:id="btnVenta" text="💰  Ventas" onAction="#navegarVentas" styleClass="menu-button"/>
+                <Button fx:id="btnConsumo" text="🥣  Consumo Lote" onAction="#navegarConsumoLote" styleClass="menu-button"/>
+                <Button fx:id="btnStock" text="🌾  Stock / Almacén" onAction="#navegarStock" styleClass="menu-button"/>
+                <Button fx:id="btnMovim" text="🔄  Movimientos" onAction="#navegarMovimientos" styleClass="menu-button"/>
+                <Button fx:id="btnCompra" text="🛒  Compras" onAction="#navegarCompras" styleClass="menu-button"/>
+
+                <!-- Empujador dinámico vertical -->
+                <Region VBox.vgrow="ALWAYS" />
+
+                <!-- Botón Salir en la zona inferior -->
+                <Button fx:id="btnSalir" text="🚪  Salir del Sistema" onAction="#Salir" styleClass="menu-button-exit"/>
             </children>
         </VBox>
     </left>
-
     <!-- CONTENEDOR CENTRAL DINÁMICO (Aquí se inyecta el Dashboard o cualquier otra pantalla) -->
     <center>
         <StackPane fx:id="contenedorPrincipal" styleClass="main-content-area" />

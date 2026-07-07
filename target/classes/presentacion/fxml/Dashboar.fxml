@@ -42,8 +42,8 @@
                 <children>
                     <VBox styleClass="kpi-card, kpi-card-interactive" GridPane.columnIndex="0" onMouseClicked="#navegarAnimales">
                         <children>
-                            <Label text="TOTAL ANIMALES" styleClass="kpi-header"/>
-                            <Label text="1,240" styleClass="kpi-value"/>
+                            <Label  text="TOTAL ANIMALES" styleClass="kpi-header"/>
+                            <Label fx:id="txtTotalAnimales" text="1,240" styleClass="kpi-value"/>
                             <Label text="Ver listado y registro diario →" styleClass="kpi-subtext"/>
                         </children>
                     </VBox>
@@ -51,7 +51,7 @@
                     <VBox styleClass="kpi-card, kpi-card-accent, kpi-card-interactive" GridPane.columnIndex="1" onMouseClicked="#navegarLotes">
                         <children>
                             <Label text="LOTES MONITOREADOS" styleClass="kpi-header"/>
-                            <Label text="18 Lotes" styleClass="kpi-value"/>
+                            <Label fx:id="txtTotalLotes"   text="18 Lotes" styleClass="kpi-value"/>
                             <Label text="Ver distribución por sectores →" styleClass="kpi-subtext"/>
                         </children>
                     </VBox>
@@ -181,7 +181,7 @@
                 <children>
                     <Label text="🚀 Cronograma de Salida al Mercado (Maduración de Campaña)" styleClass="section-inner-title"/>
                     <!-- CORREGIDO: Se quitaron las propiedades vbarPolicy y hbarPolicy -->
-                    <TableView fx:id="tblLotesProximos" prefHeight="180.0" styleClass="tabla-dashboard">
+                    <TableView fx:id="tblLotesPróximos" prefHeight="180.0" styleClass="tabla-dashboard">
                         <columnResizePolicy>
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                         </columnResizePolicy>
@@ -205,18 +205,18 @@
                     <VBox styleClass="info-block, kpi-card-interactive" GridPane.columnIndex="0" onMouseClicked="#navegarStock">
                         <children>
                             <Label text="Estado de Almacén (Gestionar Stock →)" styleClass="section-inner-title"/>
-                            <Label text="• Alimento Balanceado: 450 kg (Crítico)" styleClass="info-item-danger"/>
-                            <Label text="• Medicamentos &amp; Vacunas: Stock Estable" styleClass="info-item"/>
-                            <Label text="• Suministros generales: 85% de capacidad" styleClass="info-item"/>
+                            <Label fx:id="txtAlimento1"   text="• Alimento Balanceado: 450 kg (Crítico)" styleClass="info-item-danger"/>
+                            <Label fx:id="txtAlimento2"  text="• Medicamentos &amp; Vacunas: Stock Estable" styleClass="info-item"/>
+                            <Label fx:id="txtAlimento3"  text="• Suministros generales: 85% de capacidad" styleClass="info-item"/>
                         </children>
                     </VBox>
 
                     <VBox styleClass="info-block, kpi-card-interactive" GridPane.columnIndex="1" onMouseClicked="#navegarMovimientos">
                         <children>
-                            <Label text="Últimos Movimientos (Kardex Completo →)" styleClass="section-inner-title"/>
-                            <Label text="• Ingreso: Lote 04-B (Porcinos) - Hace 2 horas" styleClass="info-item"/>
-                            <Label text="• Compra: Suministros Veterinaria Norte - Ayer" styleClass="info-item"/>
-                            <Label text="• Actualización: Registro de peso diario completado" styleClass="info-item"/>
+                            <Label  text="Últimos Movimientos (Kardex Completo →)" styleClass="section-inner-title"/>
+                            <Label fx:id="txtMovimiento1" text="• Ingreso: Lote 04-B (Porcinos) - Hace 2 horas" styleClass="info-item"/>
+                            <Label fx:id="txtMovimiento2" text="• Compra: Suministros Veterinaria Norte - Ayer" styleClass="info-item"/>
+                            <Label fx:id="txtMovimiento3" text="• Actualización: Registro de peso diario completado" styleClass="info-item"/>
                         </children>
                     </VBox>
                 </children>
