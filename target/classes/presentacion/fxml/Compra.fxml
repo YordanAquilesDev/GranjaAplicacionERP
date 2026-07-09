@@ -116,7 +116,7 @@
                     <Label text="Elementos Cargados a la Compra" styleClass="subtitulo-seccion-tabla" />
 
                     <!-- Tabla Autoajustable para DetalleCompra -->
-                    <TableView fx:id="tblDetalleCompra" VBox.vgrow="ALWAYS" styleClass="tabla-moderna">
+                    <TableView fx:id="tblDetalleCompra" onMouseClicked="#handleSeleccionarFila" VBox.vgrow="ALWAYS" styleClass="tabla-moderna">
                         <columnResizePolicy>
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                         </columnResizePolicy>
