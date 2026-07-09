@@ -82,6 +82,9 @@
                     </execution>
                 </executions>
             </plugin>
+                 <!--
+                 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
+                 -->
 
             <plugin>
                 <groupId>org.openjfx</groupId>
