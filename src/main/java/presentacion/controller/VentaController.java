@@ -24,4 +24,10 @@ public class VentaController {
     private void handleAgregarItem(ActionEvent event) {
 
     }
+    @FXML
+    private void handleSeleccionarFila(MouseEvent  event){
+      cmbProducto
+      txtCantidad
+      txtPrecioUnitario
+    }
 }

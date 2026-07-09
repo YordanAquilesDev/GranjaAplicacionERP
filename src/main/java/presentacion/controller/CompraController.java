@@ -5,6 +5,10 @@ import javafx.fxml.FXML;
 
 public class CompraController {
 
+
+@FXML
+public Label txtIdCompra;
+
     @FXML
     private void handleGuardarCompra(ActionEvent event) {
 
@@ -17,6 +21,16 @@ public class CompraController {
 
     @FXML
     private void handleRemoverItem(ActionEvent event) {
+
+    }
+    @FXML
+    private void handleSeleccionarFila(MouseEvent even){
+        txtIdCompra.setText("");
+        cmbProveedor
+        dpFecha
+        cmbProducto
+        txtCantidad.setText("");
+        txtCostoUnitario.setText("");
 
     }
 
