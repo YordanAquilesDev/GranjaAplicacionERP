@@ -21,8 +21,10 @@ public class ConsumoLoteController {
     */
     private JlaService productoService;
     private JlaService loteService;
+    private JlaService consumoService;
     private ComboBox<Producto> cmbProducto;
     private ComboBox<LoteAnimal> cmbLoteAnimal;
+    
     
     /**
     * -------------------------------------------------
@@ -32,11 +34,13 @@ public class ConsumoLoteController {
     public ConsumoLoteController(){
         this.loteService= new LoteAnimalServiceImpl();
         this.productoService= new ProductoServiceImpl();
+        this.consumoService= new ConsumoLoteServiceImpl();
         
     }
  
     @FXML
     private void handleGuardar(ActionEvent event) {
+
 
     }
 
@@ -62,9 +66,12 @@ public class ConsumoLoteController {
     
     public void initialaizer(){
       ObservableList<Producto> productos= FXCollections.observableArrayList(productoService.findAll());
-       ObservableList<LoteAnimal> clientes=FXCollections.observableArrayList(loteService.findAll());
-        cmbLoteAnimal.setItems(clientes);
-        cmbProducto.setItems(productos);
+      ObservableList<LoteAnimal> clientes=FXCollections.observableArrayList(loteService.findAll());
+      ObservableList<ConsumoLote> consumos=FXCollections.observableArrayList(consumoLoteService.findAll());
+     tblConsumos.setItems(consumos);
+     cmbLoteAnimal.setItems(clientes);
+     cmbProducto.setItems(productos);
         
     }
+
 }
