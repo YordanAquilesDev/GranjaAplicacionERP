@@ -61,7 +61,7 @@ public class ConsumoLoteController {
     }
     
     public void initialaizer(){
-            ObservableList<Producto> productos= FXCollections.observableArrayList(productoService.findAll());
+      ObservableList<Producto> productos= FXCollections.observableArrayList(productoService.findAll());
        ObservableList<LoteAnimal> clientes=FXCollections.observableArrayList(loteService.findAll());
         cmbLoteAnimal.setItems(clientes);
         cmbProducto.setItems(productos);
