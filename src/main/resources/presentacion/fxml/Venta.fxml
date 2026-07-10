@@ -116,7 +116,7 @@
                     <Label text="Detalle de la Venta Actual" styleClass="subtitulo-seccion-tabla" />
 
                     <!-- Tabla Autoajustable para DetalleVenta -->
-                    <TableView fx:id="tblDetalleVenta" VBox.vgrow="ALWAYS" styleClass="tabla-moderna">
+                    <TableView fx:id="tblDetalleVenta" onMouseClicked="#handleSeleccionarFila" VBox.vgrow="ALWAYS" styleClass="tabla-moderna">
                         <columnResizePolicy>
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                         </columnResizePolicy>
