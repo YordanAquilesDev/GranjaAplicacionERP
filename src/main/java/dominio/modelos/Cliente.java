@@ -73,7 +73,13 @@ public class Cliente {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
- public void addCompra(Compra compra){
+
+    public void addCompra(Compra compra){
         compras.add(compra);
+ }
+
+ @Override
+    public String toString() {
+        return nombre;
  }
 }

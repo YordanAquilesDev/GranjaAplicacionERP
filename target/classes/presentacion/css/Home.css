@@ -1,0 +1,97 @@
+/* ==========================================================================
+   Estructura Base y Variables de Color Visual
+   ========================================================================== */
+.root {
+    -fx-font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    -fx-background-color: #0f172a; /* Slate 900 profundo */
+}
+
+/* ==========================================================================
+   Menú Lateral Izquierdo (Sidebar)
+   ========================================================================== */
+.sidebar {
+    -fx-background-color: #1e293b; /* Slate 800 - Fondo corporativo premium */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 20, 0, 0, 0);
+    -fx-border-color: transparent #334155 transparent transparent; /* Separador sutil derecho */
+    -fx-border-width: 1px;
+
+    /* 🛡️ CORRECCIÓN CRUCIAL: Padding separado.
+       25px arriba/abajo para separar de los bordes, 12px a los lados para dar máximo espacio horizontal */
+    -fx-padding: 25 12 25 12;
+    -fx-spacing: 6px; /* Espaciado uniforme entre botones */
+}
+
+/* --- Contenedor de Marca / Logo superior --- */
+.brand-container {
+    -fx-padding: 0 0 25 12; /* Margen interno inferior para separarlo de los botones */
+}
+.brand-title {
+    -fx-text-fill: #f8fafc; /* Blanco Puro */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+.brand-subtitle {
+    -fx-text-fill: #64748b; /* Gris apagado Slate 500 */
+    -fx-font-size: 11px;
+}
+
+/* ==========================================================================
+   Estilo de los Botones del Menú (Estilo Items Web)
+   ========================================================================== */
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94a3b8;             /* Texto gris elegante (Slate 400) */
+    -fx-font-size: 13.5px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;         /* Alineación perfecta a la izquierda */
+    -fx-padding: 12 16 12 16;           /* Botones altos y cómodos para hacer clic */
+    -fx-background-radius: 8;           /* Bordes curvos modernos */
+    -fx-cursor: hand;
+
+    /* Fuerza el estiramiento completo restando el padding lateral */
+    -fx-max-width: 1.7976931348623157E308;
+    -fx-pref-width: 236px;
+}
+
+/* --- Efecto pasar el Mouse (Hover) --- */
+.menu-button:hover {
+    -fx-background-color: #334155;     /* Slate 700 */
+    -fx-text-fill: #38bdf8;             /* Iluminación azul cian moderna al texto */
+}
+
+/* --- Estado Seleccionado / Enfocado (Active) --- */
+.menu-button:focused, .menu-button-active {
+    -fx-background-color: #475569;     /* Slate 600 */
+    -fx-text-fill: #ffffff;             /* Texto blanco brillante */
+}
+
+/* ==========================================================================
+   🚪 Botón de Salida (Zona Inferior)
+   ========================================================================== */
+.menu-button-exit {
+    -fx-background-color: transparent;
+    -fx-text-fill: #f87171;             /* Rojo suave pastel */
+    -fx-font-size: 13.5px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 16 12 16;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+
+    -fx-max-width: 1.7976931348623157E308;
+    -fx-pref-width: 236px;
+}
+
+.menu-button-exit:hover {
+    -fx-background-color: rgba(239, 68, 68, 0.12); /* Fondo rojizo translúcido elegante */
+    -fx-text-fill: #ef4444;                         /* Rojo vivo al enfocar */
+}
+
+
+/* ==========================================================================
+   Área de Contenido Dinámico (Contenedor Central)
+   ========================================================================== */
+.main-content-area {
+    -fx-background-color: #f8fafc; /* Gris ultra claro (Slate 50) para un contraste perfecto */
+    -fx-padding: 20px;            /* Colchón para que tus tablas y paneles no toquen los bordes */
+}

@@ -51,5 +51,7 @@ public class Animal {
     public String getRaza() {
         return raza;
     }
-
+  public String toString(){
+        return raza  + " " + especie;
+  }
 }

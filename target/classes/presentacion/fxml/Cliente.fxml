@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #E3F2FD; -fx-padding: 30;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label text="Módulo: Clientes" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1565C0;" />
+        <Label text="[Aquí se mostrará el listado y registro de compradores]" style="-fx-font-size: 14px; -fx-text-fill: #555555;" />
+    </children>
+</VBox>

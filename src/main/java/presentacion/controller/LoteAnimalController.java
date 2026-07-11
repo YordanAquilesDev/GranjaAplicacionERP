@@ -1,7 +1,10 @@
 package presentacion.controller;
 
+import aplicacion.serviceimpl.AnimalServiceImpl;
+import aplicacion.serviceimpl.LoteAnimalServiceImpl;
 import dominio.modelos.Animal;
 import dominio.modelos.LoteAnimal;
+import dominio.servicio.JlaService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +17,10 @@ import java.sql.Date;
 import java.util.List;
 
 public class LoteAnimalController {
+
+   private final JlaService<Animal,Integer> animalService;
+    private final JlaService<LoteAnimal,Integer> loteAnimalService;
+
     @FXML
     private TableView<LoteAnimal> tblLotes;
     @FXML
@@ -31,6 +38,10 @@ public class LoteAnimalController {
     @FXML
     private TableColumn<LoteAnimal, String > colEstadoLote;
 
+    public LoteAnimalController() {
+        this.loteAnimalService= new LoteAnimalServiceImpl();
+        this.animalService= new AnimalServiceImpl();
+    }
     @FXML
     private void handleGuardar(ActionEvent event) {
 
@@ -72,7 +83,7 @@ public class LoteAnimalController {
         colCantActual.setCellValueFactory(new PropertyValueFactory<>("cantidadActual"));
         colPesoPromedio.setCellValueFactory(new  PropertyValueFactory<>("pesoPromedio"));
         colEstadoLote.setCellValueFactory(new PropertyValueFactory<>("estadoLote"));
-        ObservableList<LoteAnimal> datos =  FXCollections.observableArrayList(lista);
+        ObservableList<LoteAnimal> datos =  FXCollections.observableArrayList(loteAnimalService.findAll());
         tblLotes.setItems(datos);
 
 
@@ -105,11 +116,9 @@ public class LoteAnimalController {
     private ComboBox<String> cmbEstadoLote;
 
     private  void llenarCombo() {
-        List<Animal> listaAnimal= List.of(
-                new Animal(),
-                new Animal()
-        );
-        ObservableList<Animal> datos =  FXCollections.observableArrayList(listaAnimal);
+        ObservableList<Animal> datos =  FXCollections.observableArrayList(animalService.findAll());
         cmbAnimal.setItems(datos);
     }
+
+
 }

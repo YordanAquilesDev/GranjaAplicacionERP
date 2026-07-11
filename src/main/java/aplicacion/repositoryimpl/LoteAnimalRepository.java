@@ -5,18 +5,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import aplicacion.serviceimpl.AnimalServiceImpl;
+import dominio.modelos.Animal;
 import dominio.modelos.LoteAnimal;
 import dominio.repository.JpaRepository;
+import dominio.servicio.JlaService;
 import presentacion.app.ConexionPostgresSQL;
 
 public class LoteAnimalRepository implements JpaRepository< LoteAnimal , Integer  > {
     Connection conexion;
+    private final JlaService<Animal, Integer> animalService;
 
     public LoteAnimalRepository () {
+
         this.conexion = ConexionPostgresSQL.getConexion();
+        this.animalService= new AnimalServiceImpl();
     }
 
 
@@ -105,6 +112,32 @@ public class LoteAnimalRepository implements JpaRepository< LoteAnimal , Integer
 
     @Override
     public List<LoteAnimal> findAll() {
-        return List.of();
+        List<LoteAnimal> loteAnimals = new ArrayList<>();
+        ResultSet resultado = null;
+
+        try {
+            String sql ="""
+                    SELECT * FROM lote_animal
+               
+                    """;
+            PreparedStatement preparar = conexion.prepareStatement(sql);
+            resultado = preparar.executeQuery();
+            resultado.next();
+            while(resultado.next()){
+                loteAnimals.add(new LoteAnimal(
+                        resultado.getInt("id_lote"),
+                        animalService.findAll().get(resultado.getInt("id_animal")),
+                        resultado.getDate("fecha_inicio"),
+                        resultado.getInt("cantidad_inicio"),
+                        resultado.getInt("cantidad_actual"),
+                        resultado.getDouble("peso_promedio"),
+                        resultado.getString("estado")));
+
+            }
+            System.out.println(loteAnimals.size());
+            return loteAnimals;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

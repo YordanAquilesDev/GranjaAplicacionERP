@@ -1,7 +1,10 @@
 package presentacion.controller;
 
+import aplicacion.serviceimpl.AnimalServiceImpl;
+import aplicacion.serviceimpl.LoteAnimalServiceImpl;
 import dominio.modelos.Animal;
 import dominio.modelos.LoteAnimal;
+import dominio.servicio.JlaService;
 import javafx.fxml.FXML;
 
 import javafx.scene.chart.BarChart;
@@ -23,12 +26,24 @@ public class DashboardController {
 
     // Instancia del controlador principal (el que maneja el menú lateral y el contenedor)
     private HomeController mainController;
+    private JlaService<Animal,Integer> animalService;
+    private JlaService<LoteAnimal,Integer> loteAnimalService;
 
     // Método setter para inyectar el controlador principal
     public void setMainController(HomeController mainController) {
         this.mainController = mainController;
     }
 
+    /**
+     * -----------------------------------------
+     * CONSTRUCTORES
+     * -----------------------------------------
+     */
+    public DashboardController() {
+        this.animalService=new AnimalServiceImpl();
+        this.loteAnimalService= new LoteAnimalServiceImpl();
+
+    }
     @FXML
     private void navegarAnimales() {
         if (mainController != null)
@@ -164,9 +179,6 @@ public class DashboardController {
     private TableColumn<LoteAnimal, String> colProgresoEstado;
 
     public void provar() {
-        txtTotalAnimales.setText("1000000");
-        txtTotalLotes.setText("1000000");
-
         // 1. Decirle a cada columna qué variable/atributo de "LoteAnimal" debe leer
         // Nota: Reemplaza las palabras entre comillas por los nombres EXACTOS de tus variables en LoteAnimal
         colProgresoLote.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("idLote"));
@@ -179,18 +191,14 @@ public class DashboardController {
         colProgresoEstado.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("estadoLote"));
 
         // 2. Convertir tu lista común a una Lista Observable que JavaFX pueda leer en tiempo real
-        javafx.collections.ObservableList<LoteAnimal> datos = javafx.collections.FXCollections.observableArrayList(lista);
+        javafx.collections.ObservableList<LoteAnimal> datos =
+                javafx.collections.FXCollections.observableArrayList(loteAnimalService.findAll());
 
         // 3. ¡INYECTAR LOS DATOS EN LA TABLA! Sin necesidad de un forEach
         tblLotesPróximos.setItems(datos);
     }
 
-    private List<LoteAnimal> lista= List.of(
-            new LoteAnimal(1,new Animal(),new Date(20,10,12),100,80,1.4,"actiivo"),
-            new LoteAnimal(1,new Animal(),new Date(20,10,12),100,80,1.4,"actiivo"),
-            new LoteAnimal(1,new Animal(),new Date(20,10,12),100,80,1.4,"actiivo")
 
-    );
     @FXML
     private TableColumn<LoteAnimal, Integer> colLoteNombre;
     @FXML
@@ -203,19 +211,22 @@ public class DashboardController {
     private TableColumn<LoteAnimal, Double> colLoteConsumo;
     @FXML
     private TableColumn<LoteAnimal, String> colLoteSanidad;
+    @FXML
+    private Label txtTasaMortalidad;
 
 
     @FXML
     public void initialize() {
         provar();
+        rellenarDatos();
         if (chartBalance != null) {
             chartBalance.setAnimated(false);
         }
 
         if (scrollPrincipal != null) {
-            // CAMBIADO: Usamos addEventFilter para interceptar el evento a la fuerza
+
             scrollPrincipal.addEventFilter(ScrollEvent.SCROLL, event -> {
-                // 1. Iniciar el cronómetro de rendimiento
+
                 long tiempoInicio = System.nanoTime();
 
                 double deltaY = event.getDeltaY();
@@ -245,6 +256,26 @@ public class DashboardController {
         } else {
             System.out.println("⚠️ ALERTA: 'scrollPrincipal' es NULL. Revisa si pusiste fx:id=\"scrollPrincipal\" en el FXML.");
         }
+    }
+
+    public void rellenarDatos(){
+       int totalAnimales= animalService.findAll().size();
+       int totalLotes= loteAnimalService.findAll().size();
+       int cantidadInicial= loteAnimalService.findAll().stream().mapToInt(LoteAnimal::getCantidadInicio).sum();
+       int cantidadFinal= loteAnimalService.findAll().stream().mapToInt(LoteAnimal::getCantidadActual).sum();
+       int diferencia= cantidadInicial - cantidadFinal;
+        /**
+         * 1000 ------ 100%
+         * 100 ------ X
+         *  X= 100 x100 / 1000
+         * cantidadInicial ------> 100%
+         * diferenia ----------- X
+         * X=catidadFinal* 100 /cantidadInicial
+         */
+       double porcentaje=(double)(diferencia*100)/cantidadInicial;
+        txtTotalAnimales.setText(String.valueOf(totalAnimales));
+        txtTotalLotes.setText(String.valueOf(totalLotes));
+        txtTasaMortalidad.setText(String.valueOf(porcentaje));
     }
 }
 

@@ -2,6 +2,7 @@ package presentacion.controller;
 
 import aplicacion.serviceimpl.ClienteService;
 import aplicacion.serviceimpl.ProductoServiceImpl;
+import aplicacion.serviceimpl.VentaServiceImpl;
 import dominio.modelos.Cliente;
 import dominio.modelos.DetalleVenta;
 import dominio.modelos.Producto;
@@ -11,10 +12,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VentaController {
     
@@ -23,13 +26,27 @@ public class VentaController {
     * DECLARACION DE VARIABLES
     * -------------------------------------------------
     */
-    private final JlaService clienteService;
-    private final JlaService  productoService;
-    private ComboBox<Producto> cmbProducto;
-    private ComboBox<Cliente> cmbCliente;
+    private final JlaService<Cliente,Integer> clienteService;
+    private final JlaService<Producto,Integer>  productoService;
+    private final JlaService<Venta,Integer> ventaService;
+
+    @FXML
+    private ComboBox<Producto> cmbProducto= new ComboBox<>();
+
+    @FXML
+    private ComboBox<Cliente> cmbCliente= new ComboBox<>();
+
     private Label txtCantidad;
+
     private Label txtPrecioUnitario;
-    private TableView<DetalleVenta> tblDetalleVenta; 
+
+    private TableView<DetalleVenta> tblDetalleVenta;
+
+    @FXML
+    private Button btnAgregarItem;
+    @FXML
+    private DatePicker dpFecha;
+
     /**
      * -----------------------------------------------
      * CONSTRUCTORES    
@@ -39,6 +56,7 @@ public class VentaController {
     public VentaController(){
         this.clienteService= new ClienteService();
         this.productoService= new ProductoServiceImpl();
+        this.ventaService= new VentaServiceImpl();
     }
 
     /**
@@ -54,20 +72,11 @@ public class VentaController {
 
     @FXML
     private void handleGuardarVenta(ActionEvent event) {
-        int idDetalle= -1;
-        Venta venta=null;
-        Producto producto= null;
-        int cantidad;
-        
-        cantidad= Integer.parseInt(txtCantidad.getText());                
-        double subTotal= cantidad*producto.getPrecio();
-        
-              
-        
-        DetalleVenta detalleGuardar = new DetalleVenta(idDetalle,venta,producto,cantidad,subTotal) ;
-        ObservableList<DetalleVenta> añadirDetalle= FXCollections.observableArrayList(detalleGuardar);
-     
-        tblDetalleVenta.setItems(añadirDetalle);
+
+    double total= detalleVenta.stream().mapToDouble(DetalleVenta::getCantidad).sum();
+    venta.setTotal(total);
+
+
 
     }
 
@@ -75,9 +84,26 @@ public class VentaController {
     private void handleRemoverItem(ActionEvent event) {
 
     }
+    // declaracion de variable global
+    public Venta venta;
+    List<DetalleVenta> detalleVenta= new ArrayList<>();
 
     @FXML
     private void handleAgregarItem(ActionEvent event) {
+        Cliente cliente= cmbCliente.getValue();
+        Date fecha= Date.valueOf(dpFecha.getValue());
+
+         venta= new Venta(0,cliente,fecha,0.0);
+
+
+        int cantidad= Integer.parseInt(txtCantidad.getText());
+        Producto producto= cmbProducto.getValue();
+        double subTotal= cantidad*producto.getPrecio();
+        DetalleVenta detalle= new DetalleVenta(0,venta,producto,cantidad,subTotal);
+        detalleVenta.add(detalle);
+        tblDetalleVenta.getItems().addAll(detalleVenta);
+        venta.addDetalleVenta(detalle);
+
 
     }
     @FXML
@@ -91,11 +117,18 @@ public class VentaController {
       
     }
     
-    
-    public void initialaizer(){
-        ObservableList<Producto> productos= FXCollections.observableArrayList(productoService.findAll());
-       ObservableList<Cliente> clientes=FXCollections.observableArrayList(clienteService.findAll());
+    @FXML
+    public void initialize(){
+       llenarCombo();
+    }
+
+    public void llenarCombo(){
+        List<Producto> listaProducto= productoService.findAll();
+        List<Cliente> listaCliente= clienteService.findAll();
+        ObservableList<Producto> productos= FXCollections.observableArrayList(listaProducto);
+        ObservableList<Cliente> clientes=FXCollections.observableArrayList(listaCliente);
         cmbCliente.setItems(clientes);
         cmbProducto.setItems(productos);
     }
+
 }
