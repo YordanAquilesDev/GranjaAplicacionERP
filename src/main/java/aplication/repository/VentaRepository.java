@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class VentaRepository implements JpaRepository<Venta,Integer   > {
-  private final DetalleVentaService detalleVentaServiceImpl;
+  private final DetalleVentaService detalleVentaService;
     public VentaRepository() {
-  this.detalleVentaServiceImpl = new DetalleVentaService();
+  this.detalleVentaService= new DetalleVentaService();
     }
 
 // C:\Users\yorda\AppData\Local\SceneBuilder\
@@ -34,7 +34,7 @@ public class VentaRepository implements JpaRepository<Venta,Integer   > {
            preparar.setDouble(3,venta.getTotal());
            respuesta=preparar.executeUpdate();
            if(respuesta>0){
-               venta.getDetalleVenta().forEach(detalleVentaServiceImpl::save);
+               //venta.getDetalleVenta().forEach(detalleVentaServiceImpl::save);
            }
            return respuesta;
        } catch (SQLException e) {
@@ -88,6 +88,19 @@ public class VentaRepository implements JpaRepository<Venta,Integer   > {
 
     @Override
     public int save(Venta beans) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       
+        int respuesta=-1;
+        try{
+        int idGenerado= saveAndFindId(beans);
+        beans.getDetalleVenta().forEach(detalle->{
+            detalle.getVenta().setIdVenta(idGenerado);
+            detalleVentaService.save(detalle);
+        });
+        return 1;
+        }catch(Exception e){
+            
+        }
+       
+        return respuesta;
     }
 }

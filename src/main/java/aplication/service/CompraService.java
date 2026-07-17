@@ -16,26 +16,27 @@ public class CompraService implements JlaService<Compra,Integer> {
 
     @Override
     public int save(Compra compra) {
-        return 0;
+        
+       return compraRepository.save(compra);
     }
 
     @Override
     public int update(Compra compra) {
-        return 0;
+         return compraRepository.update(compra);
     }
 
     @Override
-    public int delete(Integer integer) {
-        return 0;
+    public int delete(Integer id) {
+         return compraRepository.delete(id);
     }
 
     @Override
     public List<Compra> findAll() {
-        return List.of();
+        return compraRepository.findAll();
     }
 
     @Override
-    public Optional<Compra> findById(Integer integer) {
-        return Optional.empty();
+    public Optional<Compra> findById(Integer id) {
+         return compraRepository.findById(id);
     }
 }

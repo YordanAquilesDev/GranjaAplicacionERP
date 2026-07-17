@@ -1,8 +1,6 @@
 package aplication.service;
 
-import domain.service.DashboarService;
-
-public class DashboarServiceImpl implements DashboarService {
+public class DashboarServiceImpl {
 
 
 

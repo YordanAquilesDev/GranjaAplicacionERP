@@ -1,39 +1,41 @@
 package aplication.service;
 
+import aplication.repository.DetalleCompraRepository;
 import java.util.List;
 import java.util.Optional;
 import domain.model.DetalleCompra;
 import domain.service.JlaService;
 
 public class DetalleCompraService implements JlaService<DetalleCompra,Integer> {
-
+ 
+    private final DetalleCompraRepository detalleCompraRepository;
     public DetalleCompraService() {
-
+    this.detalleCompraRepository= new DetalleCompraRepository();
 
     }
 
     @Override
     public int save(DetalleCompra detalleCompra) {
-        return 0;
+        return detalleCompraRepository.save(detalleCompra);
     }
 
     @Override
     public int update(DetalleCompra detalleCompra) {
-        return 0;
+         return detalleCompraRepository.update(detalleCompra);
     }
 
     @Override
     public int delete(Integer integer) {
-        return 0;
+        return detalleCompraRepository.delete(integer);
     }
 
     @Override
     public List<DetalleCompra> findAll() {
-        return List.of();
+        return detalleCompraRepository.findAll();
     }
 
     @Override
     public Optional<DetalleCompra> findById(Integer integer) {
-        return Optional.empty();
+         return detalleCompraRepository.findById(integer);
     }
 }

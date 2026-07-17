@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import domain.model.DetalleCompra;
 import domain.repository.JpaRepository;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import presentacion.app.ConexionPostgresSQL;
 
 public class DetalleCompraRepository implements JpaRepository<DetalleCompra,Integer> {
@@ -43,6 +45,34 @@ public class DetalleCompraRepository implements JpaRepository<DetalleCompra,Inte
 
     @Override
     public int save(DetalleCompra beans) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         Connection conexionPostgres= null;
+        PreparedStatement preparar=null;
+        int filasAfectadas = 0;
+        try {
+            String sql = """
+                    INSERT INTO detalle_compra VALUES
+                                            (?,?)
+                   ;
+                    """;
+            conexionPostgres = ConexionPostgresSQL.getConexion();
+            preparar = conexionPostgres.prepareStatement(sql);
+           
+            filasAfectadas = preparar.executeUpdate();
+            return filasAfectadas;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+
+        }finally {
+            try{
+                if(preparar!=null){preparar.close();}
+                if(conexionPostgres!=null){conexionPostgres.close();}
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
     }
 }
