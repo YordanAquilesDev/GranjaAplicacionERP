@@ -65,4 +65,9 @@ public class DetallePedidoRepository implements JpaRepository<DetallePedido, Int
     public List<DetallePedido> findAll() {
         return List.of();
     }
+
+    @Override
+    public int save(DetallePedido beans) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

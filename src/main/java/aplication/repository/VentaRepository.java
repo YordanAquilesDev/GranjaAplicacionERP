@@ -85,4 +85,9 @@ public class VentaRepository implements JpaRepository<Venta,Integer   > {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public int save(Venta beans) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

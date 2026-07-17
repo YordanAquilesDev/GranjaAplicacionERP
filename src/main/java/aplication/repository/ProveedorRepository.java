@@ -56,4 +56,9 @@ public class ProveedorRepository implements JpaRepository<Proveedor,Integer   > 
     public List<Proveedor> findAll() {
         return List.of();
     }
+
+    @Override
+    public int save(Proveedor beans) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

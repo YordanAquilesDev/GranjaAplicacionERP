@@ -103,4 +103,9 @@ public class PedidoRepository implements JpaRepository<Pedido,Integer   > {
         }
     }
 
+    @Override
+    public int save(Pedido beans) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

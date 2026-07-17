@@ -40,4 +40,9 @@ public class DetalleCompraRepository implements JpaRepository<DetalleCompra,Inte
     public List<DetalleCompra> findAll() {
         return List.of();
     }
+
+    @Override
+    public int save(DetalleCompra beans) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

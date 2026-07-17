@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JpaRepository<T,ID> {
+    int save(T beans);
     int saveAndFindId (T objeto);
     int update(T objeto);
     int delete(ID id);

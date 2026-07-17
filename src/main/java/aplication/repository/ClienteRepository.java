@@ -13,16 +13,13 @@ import domain.repository.JpaRepository;
 import presentacion.app.ConexionPostgresSQL;
 
 public class ClienteRepository implements JpaRepository<Cliente, Integer> {
-    Connection conexion;
+  
 
-    public ClienteRepository() {
-
-        this.conexion = ConexionPostgresSQL.getConexion();
-
-    }
     @Override
     public int saveAndFindId(Cliente cliente) {
         int filaAfecta = -1;
+        Connection conexion= null;
+        PreparedStatement  preparar= null;
         try {
             String sql = """
                     INSERT INTO cliente
@@ -30,7 +27,9 @@ public class ClienteRepository implements JpaRepository<Cliente, Integer> {
                     VALUES
                                             (?,?,?,?,?) RETURNING id_cliente;
                     """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
+            
+            conexion= ConexionPostgresSQL.getConexion();
+         preparar = conexion.prepareStatement(sql);
             preparar.setString(1, cliente.getNombre());
             preparar.setString(2, cliente.getApellido());
             preparar.setString(3, cliente.getDni());
@@ -58,7 +57,8 @@ public class ClienteRepository implements JpaRepository<Cliente, Integer> {
 
     @Override
     public int update(Cliente objeto) {
-        PreparedStatement preparar;
+        PreparedStatement preparar= null;
+         Connection conexion= null;
         int filaAfecta = -1;
         try {
             String sql = """
@@ -66,6 +66,7 @@ public class ClienteRepository implements JpaRepository<Cliente, Integer> {
                     SET nombre=?,apellido=?,dni=?,celular=?,direccion=?
                     WHERE id_cliente = ?;
                     """;
+            conexion= ConexionPostgresSQL.getConexion();
             preparar = conexion.prepareStatement(sql);
             filaAfecta = preparar.executeUpdate();
             return filaAfecta;
@@ -77,17 +78,42 @@ public class ClienteRepository implements JpaRepository<Cliente, Integer> {
     }
 
     @Override
-    public int delete(Integer integer) {
-        return 0;
+    public int delete(Integer id) {
+        Connection conexionPostgres= null;
+        PreparedStatement preparar=null;
+        try{
+            String sql = """
+                  DELETE FROM cliente WHERE id_cliente = ?;
+                  
+            """;
+            conexionPostgres = ConexionPostgresSQL.getConexion();
+            preparar= conexionPostgres.prepareStatement(sql);
+            preparar.setInt(1, id);
+
+            return preparar.executeUpdate();
+        } catch (SQLException e) {
+            return -1;
+        }finally {
+            try{
+                if(preparar!=null){preparar.close();}
+                if(conexionPostgres!=null){conexionPostgres.close();}
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
     public Optional<Cliente> findById(Integer id) {
+         PreparedStatement preparar= null;
+         Connection conexion= null;
         try {
             String sql = """
                     SELECT * FROM cliente WHERE id_cliente = ?;
                     """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
+              conexion= ConexionPostgresSQL.getConexion();
+             preparar = conexion.prepareStatement(sql);
             preparar.setInt(1, id);
             ResultSet resultado = preparar.executeQuery();
             resultado.next();
@@ -108,6 +134,8 @@ public class ClienteRepository implements JpaRepository<Cliente, Integer> {
 
     @Override
     public List<Cliente> findAll() {
+         PreparedStatement preparar= null;
+         Connection conexion= null;
         List<Cliente> clientes = new ArrayList<>();
         try {
             String sql = """
@@ -115,7 +143,8 @@ public class ClienteRepository implements JpaRepository<Cliente, Integer> {
 
 
                     """;
-            PreparedStatement preparar = conexion.prepareStatement(sql);
+            conexion= ConexionPostgresSQL.getConexion();
+            preparar = conexion.prepareStatement(sql);
             ResultSet resultado = preparar.executeQuery();
             while (resultado.next()) {
                 clientes.add(new Cliente(
@@ -133,6 +162,11 @@ public class ClienteRepository implements JpaRepository<Cliente, Integer> {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public int save(Cliente beans) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 

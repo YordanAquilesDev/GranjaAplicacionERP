@@ -11,6 +11,14 @@ public class Compra {
     private double total;
     List<DetalleCompra> detalleCompras=new ArrayList<>();
 
+    public List<DetalleCompra> getDetalleCompras() {
+        return detalleCompras;
+    }
+
+    public void setDetalleCompras(List<DetalleCompra> detalleCompras) {
+        this.detalleCompras = detalleCompras;
+    }
+
     public Compra(int idCompra,
             Date fecha,
             Proveedor proveedor,

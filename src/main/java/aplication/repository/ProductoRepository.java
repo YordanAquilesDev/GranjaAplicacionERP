@@ -85,4 +85,9 @@ public class ProductoRepository implements JpaRepository< Producto, Integer  > {
         }
         return List.of();
     }
+
+    @Override
+    public int save(Producto beans) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

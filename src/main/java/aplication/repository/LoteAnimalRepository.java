@@ -119,4 +119,9 @@ public class LoteAnimalRepository implements JpaRepository< LoteAnimal , Integer
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public int save(LoteAnimal beans) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
