@@ -41,7 +41,7 @@ public class HomeController {
         mapasNavegacion.put(btnMovim, "/presentacion/fxml/MovimientosGranja.fxml");
         mapasNavegacion.put(btnCompra, "/presentacion/fxml/Compra.fxml");
         mapasNavegacion.put(btnAnimales, "/presentacion/fxml/Animal.fxml");
-        mapasNavegacion.put(btnVenta, "/presentacion/fxml/Venta.fxml");
+        mapasNavegacion.put(btnVenta, "/presentacion/fxml/prueva.fxml");
         mapasNavegacion.put(btnClientes, "/presentacion/fxml/Cliente.fxml");
         mapasNavegacion.put(btnProveedor, "/presentacion/fxml/Proveedor.fxml");
         mapasNavegacion.put(btnCarga, "/presentacion/fxml/CargaDatos.fxml");
@@ -56,6 +56,7 @@ public class HomeController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
             Parent nodoHijo = loader.load();
+            
 
             // === VÍNCULO CRÍTICO ENTRE CONTROLADORES ===
             // Obtenemos el controlador de la vista que se acaba de cargar en memoria

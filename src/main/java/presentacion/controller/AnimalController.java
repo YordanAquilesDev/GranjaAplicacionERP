@@ -1,8 +1,8 @@
 package presentacion.controller;
 
-import aplicacion.serviceimpl.AnimalServiceImpl;
-import dominio.modelos.Animal;
-import dominio.servicio.JlaService;
+import aplication.service.AnimalService;
+import domain.model.Animal;
+import domain.service.JlaService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +20,7 @@ public class AnimalController {
     // Dependencia del Dominio (Service)
     private final JlaService<Animal,Integer> animalService;
     public AnimalController() {
-        this.animalService = new AnimalServiceImpl();
+        this.animalService = new AnimalService();
     }
 
     // Componentes FXML
@@ -66,15 +66,17 @@ public class AnimalController {
         tblAnimales.setItems(listaAnimales);
     }
 
+    private Animal animalSeleccionado;
+
     @FXML
     void handleGuardar() {
-        if (animalService == null) return;
 
         String especie = txtEspecie.getText().trim();
         String raza = txtRaza.getText().trim();
 
-        if (especie.isEmpty() || raza.isEmpty()) {
+        if (especie.isEmpty() || raza.isEmpty() || animalSeleccionado.getIdAnimal()>0) {
             // Aquí podrías mostrar una alerta de validación básica
+            // mostrar mensaje de advertencia error
             return;
         }
 
@@ -89,7 +91,12 @@ public class AnimalController {
         }
 
         // El flujo viaja del controlador -> Service -> Repository
-        animalService.save(animal);
+       int resultado= animalService.save(animal);
+        if(resultado>=1){
+            // mensaje de exito
+        }else{
+            // mensaje de error
+        }
         
         // Refrescar UI y limpiar campos
         cargarDatosTabla();
@@ -107,9 +114,8 @@ public class AnimalController {
     @FXML
     void handleSeleccionarFila(MouseEvent event) {
         // Al hacer clic en un elemento de la tabla, se cargan los datos en el formulario para editar
-        Animal animalSeleccionado = tblAnimales.getSelectionModel().getSelectedItem();
-        
-        if (animalSeleccionado != null) {
+     animalSeleccionado = tblAnimales.getSelectionModel().getSelectedItem();
+        if (animalSeleccionado != null && animalSeleccionado.getIdAnimal() > 0) {
             txtId.setText(String.valueOf(animalSeleccionado.getIdAnimal()));
             txtEspecie.setText(animalSeleccionado.getEspecie());
             txtRaza.setText(animalSeleccionado.getRaza());
@@ -125,6 +131,12 @@ public class AnimalController {
 
     @FXML
     void handleEliminar(ActionEvent event) {
-        if (tblAnimales.getSelectionModel().getSelectedItem() != null) {}
+        if (tblAnimales.getSelectionModel().getSelectedItem() != null) {
+
+         int resultado=   animalService.delete(tblAnimales.getSelectionModel().getSelectedItem().getIdAnimal());
+            tblAnimales.getSelectionModel().clearSelection();
+            System.out.println(resultado);
+
+        }
     }
 }

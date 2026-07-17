@@ -1,13 +1,12 @@
 package presentacion.controller;
 
-import aplicacion.serviceimpl.ClienteService;
-import aplicacion.serviceimpl.ConsumoLoteService;
-import aplicacion.serviceimpl.LoteAnimalServiceImpl;
-import aplicacion.serviceimpl.ProductoServiceImpl;
-import dominio.modelos.ConsumoLote;
-import dominio.modelos.LoteAnimal;
-import dominio.modelos.Producto;
-import dominio.servicio.JlaService;
+import aplication.service.ConsumoLoteService;
+import aplication.service.LoteAnimalService;
+import aplication.service.ProductoService;
+import domain.model.ConsumoLote;
+import domain.model.LoteAnimal;
+import domain.model.Producto;
+import domain.service.JlaService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,8 +36,8 @@ public class ConsumoLoteController {
     * -------------------------------------------------
     */
     public ConsumoLoteController(){
-        this.loteService= new LoteAnimalServiceImpl();
-        this.productoService= new ProductoServiceImpl();
+        this.loteService= new LoteAnimalService();
+        this.productoService= new ProductoService();
         this.consumoLoteService= new ConsumoLoteService();
         
     }

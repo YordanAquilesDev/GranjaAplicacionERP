@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import java.util.List;
-import dominio.modelos.Pedido; // Asegúrate de apuntar a tu paquete correcto de Pedido
+import domain.model.Pedido; // Asegúrate de apuntar a tu paquete correcto de Pedido
 
 public class CrearGraficoCircular {
 

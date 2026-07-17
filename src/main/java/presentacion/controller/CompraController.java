@@ -1,7 +1,7 @@
 package presentacion.controller;
 
-import dominio.modelos.Producto;
-import dominio.modelos.Proveedor;
+import domain.model.Producto;
+import domain.model.Proveedor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

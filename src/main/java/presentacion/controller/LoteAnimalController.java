@@ -1,10 +1,10 @@
 package presentacion.controller;
 
-import aplicacion.serviceimpl.AnimalServiceImpl;
-import aplicacion.serviceimpl.LoteAnimalServiceImpl;
-import dominio.modelos.Animal;
-import dominio.modelos.LoteAnimal;
-import dominio.servicio.JlaService;
+import aplication.service.AnimalService;
+import aplication.service.LoteAnimalService;
+import domain.model.Animal;
+import domain.model.LoteAnimal;
+import domain.service.JlaService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,12 +39,24 @@ public class LoteAnimalController {
     private TableColumn<LoteAnimal, String > colEstadoLote;
 
     public LoteAnimalController() {
-        this.loteAnimalService= new LoteAnimalServiceImpl();
-        this.animalService= new AnimalServiceImpl();
+        this.loteAnimalService= new LoteAnimalService();
+        this.animalService= new AnimalService();
     }
+    Animal animal;
     @FXML
     private void handleGuardar(ActionEvent event) {
-
+        LoteAnimal lote = new LoteAnimal();
+        if(animal!=null){
+            return;
+        }
+        animal= cmbAnimal.getSelectionModel().getSelectedItem();
+        lote.setAnimal(animal);
+        lote.setFechaInicio(new java.sql.Date(System.currentTimeMillis()));
+        lote.setCantidadInicio(Integer.parseInt(txtCantidadInicio.getText()));
+        lote.setCantidadActual(Integer.parseInt(txtCantidadActual.getText()));
+        lote.setPesoPromedio(Double.parseDouble(txtPesoPromedio.getText()));
+        lote.setEstadoLote(cmbEstadoLote.getSelectionModel().getSelectedItem());
+         loteAnimalService.save(lote);
     }
 
     @FXML

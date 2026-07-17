@@ -1,26 +1,18 @@
 package presentacion.controller;
 
-import aplicacion.serviceimpl.AnimalServiceImpl;
-import aplicacion.serviceimpl.LoteAnimalServiceImpl;
-import dominio.modelos.Animal;
-import dominio.modelos.LoteAnimal;
-import dominio.servicio.JlaService;
+import aplication.service.AnimalService;
+import aplication.service.LoteAnimalService;
+import domain.model.Animal;
+import domain.model.LoteAnimal;
+import domain.service.JlaService;
 import javafx.fxml.FXML;
 
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent; // <
 
-import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
-import org.jfree.data.Value;
-
-import java.net.URL;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class DashboardController {
 
@@ -40,8 +32,8 @@ public class DashboardController {
      * -----------------------------------------
      */
     public DashboardController() {
-        this.animalService=new AnimalServiceImpl();
-        this.loteAnimalService= new LoteAnimalServiceImpl();
+        this.animalService=new AnimalService();
+        this.loteAnimalService= new LoteAnimalService();
 
     }
     @FXML
@@ -264,14 +256,6 @@ public class DashboardController {
        int cantidadInicial= loteAnimalService.findAll().stream().mapToInt(LoteAnimal::getCantidadInicio).sum();
        int cantidadFinal= loteAnimalService.findAll().stream().mapToInt(LoteAnimal::getCantidadActual).sum();
        int diferencia= cantidadInicial - cantidadFinal;
-        /**
-         * 1000 ------ 100%
-         * 100 ------ X
-         *  X= 100 x100 / 1000
-         * cantidadInicial ------> 100%
-         * diferenia ----------- X
-         * X=catidadFinal* 100 /cantidadInicial
-         */
        double porcentaje=(double)(diferencia*100)/cantidadInicial;
         txtTotalAnimales.setText(String.valueOf(totalAnimales));
         txtTotalLotes.setText(String.valueOf(totalLotes));

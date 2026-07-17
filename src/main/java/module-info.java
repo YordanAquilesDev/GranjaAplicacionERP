@@ -16,7 +16,7 @@ module com.mackas.granja {
 
     // 🌟 ¡ESTA ES LA LÍNEA QUE TE FALTA! 🌟
     // Le da permiso al motor de tablas de JavaFX de leer las propiedades de tu clase Animal
-    opens dominio.modelos to javafx.base;
+    opens domain.model to javafx.base;
     // Abre tu carpeta css al motor de gráficos de JavaFX
     opens presentacion.css to javafx.graphics;
 }
