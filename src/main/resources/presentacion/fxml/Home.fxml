@@ -33,6 +33,7 @@
                 <Button fx:id="btnStock" text="🌾  Stock / Almacén" onAction="#navegarStock" styleClass="menu-button"/>
                 <Button fx:id="btnMovim" text="🔄  Movimientos" onAction="#navegarMovimientos" styleClass="menu-button"/>
                 <Button fx:id="btnCompra" text="🛒  Compras" onAction="#navegarCompras" styleClass="menu-button"/>
+               <Button  fx:id="btnApunte" text=" creaun un apunte " onAction="#navegarApuntes" styleClass="menu-button"/>  
 
                 <!-- Empujador dinámico vertical -->
                 <Region VBox.vgrow="ALWAYS" />

@@ -26,6 +26,8 @@ public class HomeController {
     @FXML private Button btnStock;
     @FXML private Button btnConsumo;
     @FXML private Button btnSalir;
+    @FXML private Button btnApunte;
+    
 
     @FXML private StackPane contenedorPrincipal;
 
@@ -38,7 +40,7 @@ public class HomeController {
         mapasNavegacion.put(btnPedidos, "/presentacion/fxml/Pedidos.fxml");
         mapasNavegacion.put(btnLote, "/presentacion/fxml/LoteAnimal.fxml");
         mapasNavegacion.put(btnGranja, "/presentacion/fxml/Granja.fxml");
-        mapasNavegacion.put(btnMovim, "/presentacion/fxml/MovimientosGranja.fxml");
+        mapasNavegacion.put(btnMovim, "/FXML/MovimientosNegocio.fxml");
         mapasNavegacion.put(btnCompra, "/presentacion/fxml/Compra.fxml");
         mapasNavegacion.put(btnAnimales, "/presentacion/fxml/Animal.fxml");
         mapasNavegacion.put(btnVenta, "/presentacion/fxml/prueva.fxml");
@@ -46,7 +48,8 @@ public class HomeController {
         mapasNavegacion.put(btnProveedor, "/presentacion/fxml/Proveedor.fxml");
         mapasNavegacion.put(btnCarga, "/presentacion/fxml/CargaDatos.fxml");
         mapasNavegacion.put(btnStock, "/presentacion/fxml/Stock.fxml");
-        mapasNavegacion.put(btnConsumo, "/presentacion/fxml/ConsumoLote.fxml");
+        mapasNavegacion.put(btnConsumo, "/FXML/ConsumoLote.fxml");
+        mapasNavegacion.put(btnApunte, "/FXML/Apuntes.fxml");
 
         // Fuerza a que la aplicación inicie mostrando el Dashboard por defecto
         navegarHome();
@@ -118,5 +121,8 @@ public class HomeController {
     @FXML public void navegarCargaDatos() { gestionarNavegacion(btnCarga); }
     @FXML public void navegarStock() { gestionarNavegacion(btnStock); }
     @FXML public void navegarConsumoLote(){ gestionarNavegacion(btnConsumo); }
+    @FXML public void navegarApuntes(){
+        gestionarNavegacion(btnApunte);
+    }
     @FXML public void Salir() { System.exit(0); }
 }
